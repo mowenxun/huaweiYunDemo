@@ -47,7 +47,8 @@ java \
 #  -XX:+PrintGCDetails \
 #  -XX:+HeapDumpOnOutOfMemoryError \
 #  -Xloggc:logs/gc_$version.log \
--jar /home/demo.jar
+#-jar /home/demo.jar
+-jar target/demo.jar
 #--app.id=$app_id \
 #--apollo.meta=$apollo_meta \
 #--apollo.bootstrap.enabled=$apollo_bootstrap_enabled \
