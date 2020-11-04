@@ -37,9 +37,9 @@ docker run -d --restart=on-failure:5 --privileged=true \
 --net=host \
 -v $PWD/logs:/home/logs \
 --name com.xxl.job.admin xxxjob/com.xxl.job.admin \
-java \
--Djava.security.egd=file:/dev/./urandom \
--Duser.timezone=Asia/Shanghai \
+#java \
+#-Djava.security.egd=file:/dev/./urandom \
+#-Duser.timezone=Asia/Shanghai \
 #-Denv=$apollo_env \
 #-Dapollo.configService=$apollo_configService \
 #  -XX:+PrintGCDateStamps \
@@ -47,7 +47,7 @@ java \
 #  -XX:+PrintGCDetails \
 #  -XX:+HeapDumpOnOutOfMemoryError \
 #  -Xloggc:logs/gc_$version.log \
--jar /home/app.jar
+#-jar /home/app.jar
 #--app.id=$app_id \
 #--apollo.meta=$apollo_meta \
 #--apollo.bootstrap.enabled=$apollo_bootstrap_enabled \

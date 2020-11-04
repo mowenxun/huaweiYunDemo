@@ -16,5 +16,4 @@ FROM iron/java:1.8
 
 USER root
 
-#COPY target/demo.jar /home/
-ADD target/demo.jar /home/app.jar
+COPY target/demo.jar /home/
