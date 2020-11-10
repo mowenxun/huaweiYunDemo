@@ -21,7 +21,7 @@ docker run --rm \
   #-w /usr/src/mymaven $img_mvn mvn clean package -U -Pdev -DskipTests
 
 #mv $proj_home/deepexi-*.jar $proj_home/demo.jar # 兼容所有sh脚本
-copy $proj_home/deepexi-*.jar $proj_home/demo.jar # 兼容所有sh脚本
+#copy $proj_home/deepexi-*.jar $proj_home/demo.jar # 兼容所有sh脚本
 docker build -t $img_output .
 
 mkdir -p $PWD/logs
