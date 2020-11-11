@@ -40,8 +40,8 @@ docker run -d --restart=on-failure:5 --privileged=true \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
-#  -Denv=$apollo_env \
-#  -Dapollo.configService=$apollo_configService \
+  -Denv=$apollo_env \
+  -Dapollo.configService=$apollo_configService \
   -XX:+PrintGCDateStamps \
   -XX:+PrintGCTimeStamps \
   -XX:+PrintGCDetails \
