@@ -4,7 +4,7 @@ cd $(dirname $0)
 img_mvn="maven:3.3.3-jdk-8"       # docker image of maven
 m2_cache=~/.m2                    # the local maven cache dir
 proj_home=$PWD                    # the project root dir
-img_output="xiaomo/registy" # output image tag
+img_output="xiaomo/com.xiaomo.registy" # output image tag
 
 apollo_configService="http://192.168.0.218:8080"
 app_id="xiamo.registy"
@@ -19,7 +19,7 @@ docker run --rm \
   -v $m2_cache:/root/.m2 \
   -v $proj_home:/usr/src/mymaven
   #-w /usr/src/mymaven $img_mvn mvn clean package -U -Pdev -DskipTests
-copy $proj_home/deepexi-*.jar $proj_home/app/
+cp $proj_home/deepexi-*.jar $proj_home/app/
 #mv $proj_home/deepexi-*.jar $proj_home/demo.jar # 兼容所有sh脚本
 mv $proj_home/app/deepexi-*.jar $proj_home/target/demo.jar # 兼容所有sh脚本
 docker build -t $img_output .
@@ -28,7 +28,7 @@ mkdir -p $PWD/logs
 chmod 777 $PWD/logs
 
 # 删除容器
-docker rm -f xiaomo/registy &>/dev/null
+docker rm -f xiaomo/com.xiaomo.registy &>/dev/null
 
 version=$(date "+%Y%m%d%H")
 
@@ -37,7 +37,7 @@ docker run -d --restart=on-failure:5 --privileged=true \
   -w /home \
   --net=host \
   -v $PWD/logs:/home/logs \
-  --name xiaomo/registy \
+  --name xiaomo/com.xiaomo.registy \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
