@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.FinanceBankAccountMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.FinanceBankAccountDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="code" column="code"/>
+
+        <result property="name" column="name"/>
+
+        <result property="bankName" column="bank_name"/>
+
+        <result property="bankFullName" column="bank_full_name"/>
+
+        <result property="bankAccount" column="bank_account"/>
+
+        <result property="type" column="type"/>
+
+        <result property="collectionCodeUrl" column="collection_code_url"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="version" column="version"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="isOffline" column="is_offline"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="status" column="status"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            code,
+            name,
+            bank_name,
+            bank_full_name,
+            bank_account,
+            type,
+            collection_code_url,
+            remark,
+            version,
+            created_time,
+            updated_time,
+            is_offline,
+            is_deleted,
+            status    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE finance_bank_account SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM finance_bank_account
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "code != null">
+            and code = #{code}
+        </if>
+        <if test = "name != null">
+            and name = #{name}
+        </if>
+        <if test = "bankName != null">
+            and bank_name = #{bankName}
+        </if>
+        <if test = "bankFullName != null">
+            and bank_full_name = #{bankFullName}
+        </if>
+        <if test = "bankAccount != null">
+            and bank_account = #{bankAccount}
+        </if>
+        <if test = "type != null">
+            and type = #{type}
+        </if>
+        <if test = "collectionCodeUrl != null">
+            and collection_code_url = #{collectionCodeUrl}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "isOffline != null">
+            and is_offline = #{isOffline}
+        </if>
+        <if test = "status != null">
+            and status = #{status}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE finance_bank_account
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.code != null">
+                            when id = #{item.id} then #{item.code}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.name != null">
+                            when id = #{item.id} then #{item.name}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="bank_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.bankName != null">
+                            when id = #{item.id} then #{item.bankName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="bank_full_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.bankFullName != null">
+                            when id = #{item.id} then #{item.bankFullName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="bank_account = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.bankAccount != null">
+                            when id = #{item.id} then #{item.bankAccount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.type != null">
+                            when id = #{item.id} then #{item.type}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="collection_code_url = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.collectionCodeUrl != null">
+                            when id = #{item.id} then #{item.collectionCodeUrl}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_offline = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.isOffline != null">
+                            when id = #{item.id} then #{item.isOffline}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.status != null">
+                            when id = #{item.id} then #{item.status}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO finance_bank_account
+        (           tenant_id,           app_id,           code,           name,           bank_name,           bank_full_name,           bank_account,           type,           collection_code_url,           remark,           version,           created_time,           updated_time,           is_offline,           is_deleted,           status        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.code},                 #{item.name},                 #{item.bankName},                 #{item.bankFullName},                 #{item.bankAccount},                 #{item.type},                 #{item.collectionCodeUrl},                 #{item.remark},                 #{item.version},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.isOffline},                 #{item.deleted},                 #{item.status})
+        </foreach>
+    </insert>
+</mapper>

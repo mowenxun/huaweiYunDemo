@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleDeliveryPlanItemMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleDeliveryPlanItemDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="saleDeliveryPlanId" column="sale_delivery_plan_id"/>
+
+        <result property="saleDeliveryPlanCode" column="sale_delivery_plan_code"/>
+
+        <result property="pickGoodsInfoId" column="pick_goods_info_id"/>
+
+        <result property="pickGoodsOrderId" column="pick_goods_order_id"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="saleOrderCode" column="sale_order_code"/>
+
+        <result property="customerCode" column="customer_code"/>
+
+        <result property="address" column="address"/>
+
+        <result property="price" column="price"/>
+
+        <result property="majorPicture" column="major_picture"/>
+
+        <result property="skuId" column="sku_id"/>
+
+        <result property="skuCode" column="sku_code"/>
+
+        <result property="skuFormat" column="sku_format"/>
+
+        <result property="skuPrice" column="sku_price"/>
+
+        <result property="planQuantity" column="plan_quantity"/>
+
+        <result property="specialPrice" column="special_price"/>
+
+        <result property="specialPriceCode" column="special_price_code"/>
+
+        <result property="warehouseCode" column="warehouse_code"/>
+
+        <result property="department" column="department"/>
+
+        <result property="ztWq" column="zt_wq"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            created_by,
+            updated_time,
+            updated_by,
+            sale_delivery_plan_id,
+            sale_delivery_plan_code,
+            pick_goods_info_id,
+            pick_goods_order_id,
+            sale_order_id,
+            sale_order_code,
+            customer_code,
+            address,
+            price,
+            major_picture,
+            sku_id,
+            sku_code,
+            sku_format,
+            sku_price,
+            plan_quantity,
+            special_price,
+            special_price_code,
+            warehouse_code,
+            department,
+            zt_wq,
+            sku_name    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_delivery_plan_item SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_delivery_plan_item
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and version = #{version}
+        </if>
+        <if test="remark != null">
+            and remark = #{remark}
+        </if>
+        <if test="createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test="createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test="updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test="updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test="saleDeliveryPlanId != null">
+            and sale_delivery_plan_id = #{saleDeliveryPlanId}
+        </if>
+        <if test="saleDeliveryPlanCode != null">
+            and sale_delivery_plan_code = #{saleDeliveryPlanCode}
+        </if>
+        <if test="pickGoodsInfoId != null">
+            and pick_goods_info_id = #{pickGoodsInfoId}
+        </if>
+        <if test="pickGoodsOrderId != null">
+            and pick_goods_order_id = #{pickGoodsOrderId}
+        </if>
+        <if test="saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test="saleOrderCode != null">
+            and sale_order_code = #{saleOrderCode}
+        </if>
+        <if test="customerCode != null">
+            and customer_code = #{customerCode}
+        </if>
+        <if test="address != null">
+            and address = #{address}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+        <if test="majorPicture != null">
+            and major_picture = #{majorPicture}
+        </if>
+        <if test="skuId != null">
+            and sku_id = #{skuId}
+        </if>
+        <if test="skuCode != null">
+            and sku_code = #{skuCode}
+        </if>
+        <if test="skuFormat != null">
+            and sku_format = #{skuFormat}
+        </if>
+        <if test="skuPrice != null">
+            and sku_price = #{skuPrice}
+        </if>
+        <if test="planQuantity != null">
+            and plan_quantity = #{planQuantity}
+        </if>
+        <if test="specialPrice != null">
+            and special_price = #{specialPrice}
+        </if>
+        <if test="specialPriceCode != null">
+            and special_price_code = #{specialPriceCode}
+        </if>
+        <if test="warehouseCode != null">
+            and warehouse_code = #{warehouseCode}
+        </if>
+        <if test="department != null">
+            and department = #{department}
+        </if>
+        <if test="ztWq != null">
+            and zt_wq = #{ztWq}
+        </if>
+        <if test="skuName != null">
+            and sku_name = #{skuName}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_delivery_plan_item
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdBy != null">
+                        when id = #{item.id} then #{item.createdBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedBy != null">
+                        when id = #{item.id} then #{item.updatedBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleDeliveryPlanId != null">
+                        when id = #{item.id} then #{item.saleDeliveryPlanId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleDeliveryPlanCode != null">
+                        when id = #{item.id} then #{item.saleDeliveryPlanCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_info_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickGoodsInfoId != null">
+                        when id = #{item.id} then #{item.pickGoodsInfoId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickGoodsOrderId != null">
+                        when id = #{item.id} then #{item.pickGoodsOrderId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleOrderId != null">
+                        when id = #{item.id} then #{item.saleOrderId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleOrderCode != null">
+                        when id = #{item.id} then #{item.saleOrderCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="customer_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.customerCode != null">
+                        when id = #{item.id} then #{item.customerCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="address = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.address != null">
+                        when id = #{item.id} then #{item.address}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.price != null">
+                        when id = #{item.id} then #{item.price}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="major_picture = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.majorPicture != null">
+                        when id = #{item.id} then #{item.majorPicture}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuId != null">
+                        when id = #{item.id} then #{item.skuId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuCode != null">
+                        when id = #{item.id} then #{item.skuCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_format = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuFormat != null">
+                        when id = #{item.id} then #{item.skuFormat}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuPrice != null">
+                        when id = #{item.id} then #{item.skuPrice}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="plan_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.planQuantity != null">
+                        when id = #{item.id} then #{item.planQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="special_price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.specialPrice != null">
+                        when id = #{item.id} then #{item.specialPrice}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="special_price_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.specialPriceCode != null">
+                        when id = #{item.id} then #{item.specialPriceCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="warehouse_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.warehouseCode != null">
+                        when id = #{item.id} then #{item.warehouseCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="department = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.department != null">
+                        when id = #{item.id} then #{item.department}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="zt_wq = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.ztWq != null">
+                        when id = #{item.id} then #{item.ztWq}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="skuName = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuName != null">
+                        when id = #{item.id} then #{item.skuName}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_delivery_plan_item
+        ( tenant_id, app_id, version, remark, is_deleted, created_time, created_by, updated_time, updated_by,
+        sale_delivery_plan_id, sale_delivery_plan_code, pick_goods_info_id, pick_goods_order_id, sale_order_id,
+        sale_order_code, customer_code, address, price, major_picture, sku_id, sku_code,sku_name ,sku_format, sku_price,
+        plan_quantity, special_price, special_price_code, warehouse_code, department, zt_wq )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.remark}, #{item.isDeleted}, #{item.createdTime},
+            #{item.createdBy}, #{item.updatedTime}, #{item.updatedBy}, #{item.saleDeliveryPlanId},
+            #{item.saleDeliveryPlanCode}, #{item.pickGoodsInfoId}, #{item.pickGoodsOrderId}, #{item.saleOrderId},
+            #{item.saleOrderCode}, #{item.customerCode}, #{item.address}, #{item.price}, #{item.majorPicture},
+            #{item.skuId}, #{item.skuCode},, #{item.skuName} #{item.skuFormat}, #{item.skuPrice}, #{item.planQuantity},
+            #{item.specialPrice}, #{item.specialPriceCode}, #{item.warehouseCode}, #{item.department}, #{item.ztWq})
+        </foreach>
+    </insert>
+</mapper>

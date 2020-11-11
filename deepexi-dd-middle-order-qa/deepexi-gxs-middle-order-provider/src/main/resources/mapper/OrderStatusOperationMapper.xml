@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderStatusOperationMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderStatusOperationDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="statusIdentity" column="status_identity"/>
+
+        <result property="statusId" column="status_id"/>
+
+        <result property="operationId" column="operation_id"/>
+
+        <result property="operationName" column="operation_name"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="portal" column="portal"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="version" column="version"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            status_identity,
+            status_id,
+            operation_id,
+            operation_name,
+            tenant_id,
+            app_id,
+            is_deleted,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by,
+            portal,
+            remark,
+            version    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_status_operation SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_status_operation
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "statusIdentity != null">
+            and status_identity = #{statusIdentity}
+        </if>
+        <if test = "statusId != null">
+            and status_id = #{statusId}
+        </if>
+        <if test = "operationId != null">
+            and operation_id = #{operationId}
+        </if>
+        <if test = "operationName != null">
+            and operation_name = #{operationName}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test = "portal != null">
+            and portal = #{portal}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_status_operation
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="status_identity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.statusIdentity != null">
+                            when id = #{item.id} then #{item.statusIdentity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.statusId != null">
+                            when id = #{item.id} then #{item.statusId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="operation_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.operationId != null">
+                            when id = #{item.id} then #{item.operationId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="operation_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.operationName != null">
+                            when id = #{item.id} then #{item.operationName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedBy != null">
+                            when id = #{item.id} then #{item.updatedBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="portal = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.portal != null">
+                        when id = #{item.id} then #{item.portal}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_status_operation
+        (           status_identity,           status_id,           operation_id,           operation_name,           tenant_id,           app_id,           is_deleted,           created_time,           updated_time,           created_by,           updated_by,        portal,remark,version)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.statusIdentity},                 #{item.statusId},                 #{item.operationId},                 #{item.operationName},                 #{item.tenantId},                 #{item.appId},                 #{item.isDeleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.createdBy},                 #{item.updatedBy}, #{item.portal},#{item.remark},#{item.version})
+        </foreach>
+    </insert>
+</mapper>

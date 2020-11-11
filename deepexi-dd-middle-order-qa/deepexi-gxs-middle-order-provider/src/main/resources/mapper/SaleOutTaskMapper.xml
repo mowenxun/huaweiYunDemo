@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleOutTaskMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleOutTaskDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="code" column="code"/>
+
+        <result property="type" column="type"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="saleOrderCode" column="sale_order_code"/>
+
+        <result property="status" column="status"/>
+
+        <result property="ticketDate" column="ticket_date"/>
+
+        <result property="skuQuantity" column="sku_quantity"/>
+
+        <result property="taskType" column="task_type"/>
+
+        <result property="hedgeOrder" column="hedge_order"/>
+
+        <result property="orderDeliveryId" column="order_delivery_id"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="deliveryWareHouseId" column="delivery_ware_house_id"/>
+
+        <result property="deliveryWareHouseName" column="delivery_ware_house_name"/>
+
+        <result property="deliveryType" column="delivery_type"/>
+
+        <result property="deliveryTime" column="delivery_time"/>
+
+        <result property="signStatus" column="sign_status"/>
+
+        <result property="deliveryQuantity" column="delivery_quantity"/>
+
+        <result property="signBy" column="sign_by"/>
+
+        <result property="signTime" column="sign_time"/>
+
+        <result property="skuApplyQuantity" column="sku_apply_quantity"/>
+
+        <result property="salePickGoodsId" column="sale_pick_goods_id"/>
+
+        <result property="salePickGoodsCode" column="sale_pick_goods_code"/>
+
+        <result property="ascriptionOrgId" column="ascription_org_id"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            code,
+            type,
+            sale_order_id,
+            sale_order_code,
+            status,
+            ticket_date,
+            sku_quantity,
+            task_type,
+            hedge_order,
+            order_delivery_id,
+            sign_status,
+            delivery_ware_house_id,
+            delivery_ware_house_name,
+            delivery_type,
+            delivery_time,
+            delivery_quantity,
+            sign_by,
+            sign_time,
+            sku_apply_quantity,
+            sale_pick_goods_id,
+            sale_pick_goods_code,
+            isolation_id,
+            ascription_org_id
+    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_out_task SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_out_task
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "saleDeliveryPlanId != null">
+            and sale_Delivery_Plan_Id = #{saleDeliveryPlanId}
+        </if>
+        <if test = "saleDeliveryPlanCode != null">
+            and sale_Delivery_Plan_code = #{saleDeliveryPlanCode}
+        </if>
+
+        <if test = "salePickGoodsId != null">
+            and sale_Pick_Goods_Id = #{salePickGoodsId}
+        </if>
+        <if test = "salePickGoodsCode != null">
+            and sale_Pick_Goods_Code = #{salePickGoodsCode}
+        </if>
+        <if test=" isolationId != null ">
+            and isolation_id = #{isolationId}
+        </if>
+        <if test=" ascriptionOrgId != null">
+            and ascription_org_id = #{ascriptionOrgId}
+        </if>
+
+        <if test="code != null and code != ''">
+            and lower(code) like concat('%',trim(lower(#{code})),'%')
+        </if>
+        <if test="saleOrderCode != null and saleOrderCode != ''">
+            and lower(sale_order_code) like concat('%',trim(lower(#{saleOrderCode})),'%')
+        </if>
+        <if test="createTimeFrom != null and createTimeFrom != ''">
+            <![CDATA[ and DATE_FORMAT(ticket_date,'%Y-%m-%d') >= #{createTimeFrom}]]>
+        </if>
+        <if test="createTimeTo != null and createTimeTo != ''">
+            <![CDATA[ and DATE_FORMAT(ticket_date,'%Y-%m-%d') <= #{createTimeTo}]]>
+        </if>
+        <if test="isShowHedge != null and isShowHedge != ''">
+            and hedge_order = #{isShowHedge}
+        </if>
+        <if test="saleOrderIdList != null and saleOrderIdList.size() > 0">
+            and sale_order_id in
+            <foreach item="item" index="index" collection="saleOrderIdList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="signStatusList != null and signStatusList.size() > 0">
+            and sign_status in
+            <foreach item="item" index="index" collection="signStatusList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_out_task
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.code != null">
+                        when id = #{item.id} then #{item.code}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.type != null">
+                        when id = #{item.id} then #{item.type}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderId != null">
+                            when id = #{item.id} then #{item.saleOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderCode != null">
+                            when id = #{item.id} then #{item.saleOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.status != null">
+                            when id = #{item.id} then #{item.status}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="ticket_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.ticketDate != null">
+                            when id = #{item.id} then #{item.ticketDate}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.skuQuantity != null">
+                            when id = #{item.id} then #{item.skuQuantity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="task_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.taskType != null">
+                            when id = #{item.id} then #{item.taskType}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="hedge_order = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.hedgeOrder != null">
+                            when id = #{item.id} then #{item.hedgeOrder}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_delivery_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.orderDeliveryId != null">
+                        when id = #{item.id} then #{item.orderDeliveryId}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_out_task
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           code,           type,           sale_order_id,           sale_order_code,           status,           ticket_date,           sku_quantity,           task_type,           hedge_order,        order_delivery_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.deleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.code},           #{item.type},           #{item.saleOrderId},                 #{item.saleOrderCode},                 #{item.status},                 #{item.ticketDate},                 #{item.skuQuantity},                 #{item.taskType},                 #{item.hedgeOrder},           #{item.orderDeliveryId})
+        </foreach>
+    </insert>
+    <select id="selectIdListForAutoSign" resultType="java.lang.Long">
+        SELECT id FROM sale_out_task where DATE_SUB(CURDATE(), INTERVAL #{day} DAY) <![CDATA[ <= ]]> date(created_time) order by created_time
+    </select>
+    <select id="findSaleOutTaskByIds" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sale_out_task
+    WHERE is_deleted = 0
+        and sale_order_id IN
+        <foreach collection="saleOrderId" index="index" item="saleOrderId" open="(" separator="," close=")">
+            #{saleOrderId}
+        </foreach>
+    </select>
+</mapper>

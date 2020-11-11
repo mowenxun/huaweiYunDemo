@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleOrderItemMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleOrderItemDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="code" column="code"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="saleOrderCode" column="sale_order_code"/>
+
+        <result property="unitId" column="unit_id"/>
+
+        <result property="skuId" column="sku_id"/>
+
+        <result property="skuName" column="sku_name"/>
+
+        <result property="skuCode" column="sku_code"/>
+
+        <result property="skuFormat" column="sku_format"/>
+
+        <result property="skuQuantity" column="sku_quantity"/>
+
+        <result property="taxRate" column="tax_rate"/>
+
+        <result property="price" column="price"/>
+
+        <result property="totalAmount" column="total_amount"/>
+
+        <result property="accrueAmount" column="accrue_amount"/>
+
+        <result property="discountAmount" column="discount_amount"/>
+
+        <result property="costPrice" column="cost_price"/>
+
+        <result property="pricePolicyId" column="price_policy_id"/>
+
+        <result property="majorPicture" column="major_picture"/>
+
+        <result property="shopId" column="shop_id"/>
+
+        <result property="signQuantity" column="sign_quantity"/>
+
+        <result property="skuTotalQuantity" column="sku_total_quantity"/>
+
+        <result property="activitiesId" column="activities_id"/>
+
+        <result property="directId" column="direct_id"/>
+
+        <result property="rowCode" column="row_code"/>
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            code,
+            sale_order_id,
+            sale_order_code,
+            unit_id,
+            unit_name,
+            sku_id,
+            sku_name,
+            sku_code,
+            sku_format,
+            sku_quantity,
+            tax_rate,
+            price,
+            total_amount,
+            accrue_amount,
+            discount_amount,
+            cost_price,
+            price_policy_id,
+            major_picture,
+            shop_id,
+            sku_total_quantity,
+            available_pick_num,
+            row_code,
+            activities_id,
+            direct_id
+</sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_order_item SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_order_item
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and version = #{version}
+        </if>
+        <if test="remark != null">
+            and remark = #{remark}
+        </if>
+        <if test="createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test="updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test="code != null">
+            and code = #{code}
+        </if>
+        <if test="saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test="saleOrderCode != null">
+            and sale_order_code = #{saleOrderCode}
+        </if>
+        <if test="unitId != null">
+            and unit_id = #{unitId}
+        </if>
+        <if test="skuId != null">
+            and sku_id = #{skuId}
+        </if>
+        <if test="skuName != null and skuName != '' ">
+            and sku_name like concat('%',#{skuName},'%')
+        </if>
+        <if test="skuCode != null and skuCode != '' ">
+            and sku_code like concat('%',#{skuCode},'%')
+        </if>
+        <if test="skuFormat != null">
+            and sku_format = #{skuFormat}
+        </if>
+        <if test="likeSkuNameOrSkuFormat != null and likeSkuNameOrSkuFormat != ''">
+            and (sku_name like concat('%',#{likeSkuNameOrSkuFormat},'%') or sku_format like concat('%',#{likeSkuNameOrSkuFormat},'%'))
+        </if>
+        <if test="skuQuantity != null">
+            and sku_quantity = #{skuQuantity}
+        </if>
+        <if test="taxRate != null">
+            and tax_rate = #{taxRate}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+        <if test="totalAmount != null">
+            and total_amount = #{totalAmount}
+        </if>
+        <if test="accrueAmount != null">
+            and accrue_amount = #{accrueAmount}
+        </if>
+        <if test="discountAmount != null">
+            and discount_amount = #{discountAmount}
+        </if>
+        <if test="costPrice != null">
+            and cost_price = #{costPrice}
+        </if>
+        <if test="pricePolicyId != null">
+            and price_policy_id = #{pricePolicyId}
+        </if>
+        <if test="idList != null and idList.size() > 0">
+            and id in
+            <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+
+
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_order_item
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.code != null">
+                        when id = #{item.id} then #{item.code}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleOrderId != null">
+                        when id = #{item.id} then #{item.saleOrderId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleOrderCode != null">
+                        when id = #{item.id} then #{item.saleOrderCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="unit_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.unitId != null">
+                        when id = #{item.id} then #{item.unitId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuId != null">
+                        when id = #{item.id} then #{item.skuId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuName != null">
+                        when id = #{item.id} then #{item.skuName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuCode != null">
+                        when id = #{item.id} then #{item.skuCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_format = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuFormat != null">
+                        when id = #{item.id} then #{item.skuFormat}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuQuantity != null">
+                        when id = #{item.id} then #{item.skuQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="tax_rate = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.taxRate != null">
+                        when id = #{item.id} then #{item.taxRate}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.price != null">
+                        when id = #{item.id} then #{item.price}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.totalAmount != null">
+                        when id = #{item.id} then #{item.totalAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="accrue_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.accrueAmount != null">
+                        when id = #{item.id} then #{item.accrueAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="discount_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.discountAmount != null">
+                        when id = #{item.id} then #{item.discountAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="cost_price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.costPrice != null">
+                        when id = #{item.id} then #{item.costPrice}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="price_policy_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pricePolicyId != null">
+                        when id = #{item.id} then #{item.pricePolicyId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="majorPicture = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.majorPicture != null">
+                        when id = #{item.id} then #{item.majorPicture}
+                    </if>
+
+                </foreach>
+            </trim>
+
+            <trim prefix="unitName = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.unitName != null">
+                        when id = #{item.id} then #{item.unitName}
+                    </if>
+
+                </foreach>
+            </trim>
+
+            <trim prefix="unitName = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.shopId != null">
+                        when id = #{item.id} then #{item.shopId}
+                    </if>
+
+                </foreach>
+            </trim>
+
+
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+
+
+    <update id="updateAvailablePickNum" parameterType="com.deepexi.dd.middle.order.domain.SalePickGoodsOrderSkuDTO">
+        UPDATE sale_order_item SET available_pick_num=available_pick_num + #{lockNum} WHERE id= #{saleOrderItemId} AND is_deleted=0;
+    </update>
+
+
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_order_item
+        ( tenant_id, app_id, version, remark, is_deleted,
+        created_time, updated_time, code, sale_order_id, sale_order_code,
+        unit_id, unit_name, sku_id, shop_id, sku_name, sku_code, sku_format, sku_quantity, sku_total_quantity, tax_rate,
+        price, total_amount, accrue_amount, discount_amount, cost_price, price_policy_id, major_picture
+        ,activities_id,direct_id,available_pick_num )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version},
+            #{item.remark}, #{item.deleted}, #{item.createdTime},
+            #{item.updatedTime}, #{item.code}, #{item.saleOrderId},
+            #{item.saleOrderCode}, #{item.unitId}, #{item.unitName}, #{item.skuId}, #{item.shopId}, #{item.skuName},
+            #{item.skuCode}, #{item.skuFormat}, #{item.skuQuantity}, #{item.skuTotalQuantity}, #{item.taxRate},
+            #{item.price}, #{item.totalAmount}, #{item.accrueAmount}, #{item.discountAmount}, #{item.costPrice},
+            #{item.pricePolicyId}, #{item.majorPicture},#{item.activitiesId},#{item.directId},#{item.skuQuantity})
+        </foreach>
+    </insert>
+</mapper>

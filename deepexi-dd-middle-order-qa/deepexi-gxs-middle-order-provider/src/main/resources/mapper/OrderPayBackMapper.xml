@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderPayBackMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderPayBackDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="payOrderNo" column="pay_order_no"/>
+
+        <result property="outPayOrderNo" column="out_pay_order_no"/>
+
+        <result property="payTradeNo" column="pay_trade_no"/>
+
+        <result property="thirdpartyPayTradeNo" column="thirdparty_pay_trade_no"/>
+
+        <result property="payStatus" column="pay_status"/>
+
+        <result property="amount" column="amount"/>
+
+        <result property="buyerPayAmount" column="buyer_pay_amount"/>
+
+        <result property="tradeCreateTime" column="trade_create_time"/>
+
+        <result property="paySuccessTime" column="pay_success_time"/>
+
+        <result property="buyerId" column="buyer_id"/>
+
+        <result property="payChannelCode" column="pay_channel_code"/>
+
+        <result property="payMethodId" column="pay_method_id"/>
+
+        <result property="payMethodCode" column="pay_method_code"/>
+
+        <result property="signature" column="signature"/>
+
+        <result property="signType" column="sign_type"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            pay_order_no,
+            out_pay_order_no,
+            pay_trade_no,
+            thirdparty_pay_trade_no,
+            pay_status,
+            amount,
+            buyer_pay_amount,
+            trade_create_time,
+            pay_success_time,
+            buyer_id,
+            pay_channel_code,
+            pay_method_id,
+            pay_method_code,
+            signature,
+            sign_type    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_pay_back SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_pay_back
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "payOrderNo != null">
+            and pay_order_no = #{payOrderNo}
+        </if>
+        <if test = "outPayOrderNo != null">
+            and out_pay_order_no = #{outPayOrderNo}
+        </if>
+        <if test = "payTradeNo != null">
+            and pay_trade_no = #{payTradeNo}
+        </if>
+        <if test = "thirdpartyPayTradeNo != null">
+            and thirdparty_pay_trade_no = #{thirdpartyPayTradeNo}
+        </if>
+        <if test = "payStatus != null">
+            and pay_status = #{payStatus}
+        </if>
+        <if test = "amount != null">
+            and amount = #{amount}
+        </if>
+        <if test = "buyerPayAmount != null">
+            and buyer_pay_amount = #{buyerPayAmount}
+        </if>
+        <if test = "tradeCreateTime != null">
+            and trade_create_time = #{tradeCreateTime}
+        </if>
+        <if test = "paySuccessTime != null">
+            and pay_success_time = #{paySuccessTime}
+        </if>
+        <if test = "buyerId != null">
+            and buyer_id = #{buyerId}
+        </if>
+        <if test = "payChannelCode != null">
+            and pay_channel_code = #{payChannelCode}
+        </if>
+        <if test = "payMethodId != null">
+            and pay_method_id = #{payMethodId}
+        </if>
+        <if test = "payMethodCode != null">
+            and pay_method_code = #{payMethodCode}
+        </if>
+        <if test = "signature != null">
+            and signature = #{signature}
+        </if>
+        <if test = "signType != null">
+            and sign_type = #{signType}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_pay_back
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_order_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payOrderNo != null">
+                            when id = #{item.id} then #{item.payOrderNo}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="out_pay_order_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.outPayOrderNo != null">
+                            when id = #{item.id} then #{item.outPayOrderNo}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_trade_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payTradeNo != null">
+                            when id = #{item.id} then #{item.payTradeNo}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="thirdparty_pay_trade_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.thirdpartyPayTradeNo != null">
+                            when id = #{item.id} then #{item.thirdpartyPayTradeNo}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payStatus != null">
+                            when id = #{item.id} then #{item.payStatus}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.amount != null">
+                            when id = #{item.id} then #{item.amount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_pay_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.buyerPayAmount != null">
+                            when id = #{item.id} then #{item.buyerPayAmount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="trade_create_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tradeCreateTime != null">
+                            when id = #{item.id} then #{item.tradeCreateTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_success_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.paySuccessTime != null">
+                            when id = #{item.id} then #{item.paySuccessTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.buyerId != null">
+                            when id = #{item.id} then #{item.buyerId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_channel_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payChannelCode != null">
+                            when id = #{item.id} then #{item.payChannelCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_method_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payMethodId != null">
+                            when id = #{item.id} then #{item.payMethodId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_method_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payMethodCode != null">
+                            when id = #{item.id} then #{item.payMethodCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="signature = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.signature != null">
+                            when id = #{item.id} then #{item.signature}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sign_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.signType != null">
+                            when id = #{item.id} then #{item.signType}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_pay_back
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           pay_order_no,           out_pay_order_no,           pay_trade_no,           thirdparty_pay_trade_no,           pay_status,           amount,           buyer_pay_amount,           trade_create_time,           pay_success_time,           buyer_id,           pay_channel_code,           pay_method_id,           pay_method_code,           signature,           sign_type        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.payOrderNo},                 #{item.outPayOrderNo},                 #{item.payTradeNo},                 #{item.thirdpartyPayTradeNo},                 #{item.payStatus},                 #{item.amount},                 #{item.buyerPayAmount},                 #{item.tradeCreateTime},                 #{item.paySuccessTime},                 #{item.buyerId},                 #{item.payChannelCode},                 #{item.payMethodId},                 #{item.payMethodCode},                 #{item.signature},                 #{item.signType})
+        </foreach>
+    </insert>
+</mapper>

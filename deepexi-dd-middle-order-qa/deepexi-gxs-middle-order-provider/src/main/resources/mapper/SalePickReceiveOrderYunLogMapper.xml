@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SalePickReceiveOrderYunLogMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SalePickReceiveOrderYunLogDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="receiveBody" column="receive_body"/>
+
+        <result property="pickOrderCode" column="pick_order_code"/>
+
+        <result property="resultCode" column="result_code"/>
+
+        <result property="operationType" column="operationType"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            created_by,
+            receive_body,
+            pick_order_code,
+            result_code,
+            operationType    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_pick_receive_order_yun_log SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_pick_receive_order_yun_log
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "isDeleted != null">
+            and is_deleted = #{isDeleted}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "receiveBody != null">
+            and receive_body = #{receiveBody}
+        </if>
+        <if test = "pickOrderCode != null">
+            and pick_order_code = #{pickOrderCode}
+        </if>
+        <if test = "resultCode != null">
+            and result_code = #{resultCode}
+        </if>
+        <if test = "operationType != null">
+            and operationType = #{operationType}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_pick_receive_order_yun_log
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_body = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveBody != null">
+                            when id = #{item.id} then #{item.receiveBody}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.pickOrderCode != null">
+                            when id = #{item.id} then #{item.pickOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="result_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.resultCode != null">
+                            when id = #{item.id} then #{item.resultCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="operationType = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.operationType != null">
+                            when id = #{item.id} then #{item.operationType}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_pick_receive_order_yun_log
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           created_by,           receive_body,           pick_order_code,           result_code,           operationType        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.createdBy},                 #{item.receiveBody},                 #{item.pickOrderCode},                 #{item.resultCode},                 #{item.operationType})
+        </foreach>
+    </insert>
+</mapper>

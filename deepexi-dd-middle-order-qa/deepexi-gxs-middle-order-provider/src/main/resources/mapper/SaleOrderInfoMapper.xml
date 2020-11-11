@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleOrderInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleOrderInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="code" column="code"/>
+
+        <result property="status" column="status"/>
+
+        <result property="sellerId" column="seller_id"/>
+
+        <result property="sellerName" column="seller_name"/>
+
+        <result property="buyerId" column="buyer_id"/>
+
+        <result property="buyerType" column="buyer_type"/>
+
+        <result property="buyerName" column="buyer_name"/>
+
+        <result property="ticketType" column="ticket_type"/>
+
+        <result property="shippingType" column="shipping_type"/>
+
+        <result property="fromStorehouse" column="from_storehouse"/>
+
+        <result property="handler" column="handler"/>
+
+        <result property="ticketDate" column="ticket_date"/>
+
+        <result property="quantity" column="quantity"/>
+
+        <result property="totalAmount" column="total_amount"/>
+
+        <result property="discountAmount" column="discount_amount"/>
+
+        <result property="accrueAmount" column="accrue_amount"/>
+
+        <result property="totalExpense" column="total_expense"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="paymentType" column="payment_type"/>
+
+        <result property="settlementStatus" column="settlement_status"/>
+
+        <result property="paymentStatus" column="payment_status"/>
+
+        <result property="arriveDate" column="arrive_date"/>
+
+        <result property="isolationId" column="isolation_id"/>
+
+        <result property="handlerName" column="handler_name"/>
+
+        <result property="department" column="department"/>
+
+        <result property="payAmount" column="pay_amount"/>
+
+        <result property="totalQuantity" column="total_quantity"/>
+
+        <result property="totalSignQuantity" column="total_sign_quantity"/>
+
+        <result property="pickQuantity" column="pick_quantity"/>
+
+        <result property="verifyStatus" column="verify_status"/>
+
+        <result property="acceptStatus" column="accept_status"/>
+
+        <result property="partnerId" column="partner_id"/>
+
+        <result property="partnerName" column="partner_name"/>
+
+        <result property="productId" column="product_id"/>
+
+        <result property="planMonth" column="plan_month"/>
+
+        <result property="productName" column="product_name"/>
+
+        <result property="customerId" column="customer_id"/>
+
+        <result property="customerName" column="customer_name"/>
+
+        <result property="customerId" column="customer_id"/>
+
+        <result property="customerName" column="customer_name"/>
+
+        <result property="projectId" column="project_id"/>
+
+        <result property="contractId" column="contract_id"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            t1.id,
+            t1.tenant_id,
+            t1.app_id,
+            t1.version,
+            t1.remark,
+            t1.is_deleted,
+            t1.created_time,
+            t1.updated_time,
+            t1.project_id,
+            t1.contract_id,
+            t1.code,
+            t1.status,
+            t1.seller_id,
+            t1.seller_name,
+            t1.buyer_id,
+            t1.buyer_type,
+            t1.buyer_name,
+            t1.ticket_type,
+            t1.shipping_type,
+            t1.from_storehouse,
+            t1.handler,
+            t1.ticket_date,
+            t1.quantity,
+            t1.total_amount,
+            t1.discount_amount,
+            t1.accrue_amount,
+            t1.total_expense,
+            t1.created_by,
+            t1.updated_by,
+            t1.payment_type,
+            t1.settlement_status,
+            t1.payment_status,
+            t1.arrive_date,
+            t1.isolation_id,
+            t1.handler_name,
+            t1.department,
+            t1.pay_amount,
+            t1.total_quantity,
+            t1.total_sign_quantity,
+            t1.pick_quantity,
+            t1.verify_status,
+            t1.accept_status,
+            t1.partner_id,
+            t1.partner_name,
+            t1.product_id,
+            t1.plan_month,
+            t1.product_name,
+            t1.customer_id,
+            t1.customer_name,
+            t1.ascription_org_Id,
+            t1.delivery_type,
+            t1.pay_order_code
+                </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_order_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_order_info t1
+        LEFT JOIN order_consignee_info t2
+        ON t1.id = t2.sale_order_id
+        AND t1.is_deleted = t2.is_deleted
+        WHERE t1.is_deleted = 0
+        <if test="null != signTimeFrom or null != signTimeTo">
+            AND t1.id
+            IN
+            (
+            SELECT sale_order_id
+            FROM sale_out_task
+            WHERE is_deleted =0
+            <if test="null != signTimeFrom">
+                and sign_time &gt;= #{signTimeFrom}
+            </if>
+            <if test="null != signTimeTo">
+                and sign_time &lt; DATE_FORMAT(DATE_ADD(#{signTimeTo},INTERVAL 1 DAY),'%Y-%m-%d')
+            </if>
+            )
+        </if>
+        <if test="id != null">
+            and t1.id = #{id}
+        </if>
+        <if test="ids!=null and ids.size>0">
+            and t1.id in
+            <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+
+        <if test="tenantId != null">
+            and t1.tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and t1.app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and t1.version = #{version}
+        </if>
+        <if test="remark != null">
+            and t1.remark = #{remark}
+        </if>
+        <if test="createdTime != null">
+            and t1.created_time = #{createdTime}
+        </if>
+        <if test="updatedTime != null">
+            and t1.updated_time = #{updatedTime}
+        </if>
+        <if test="code != null and code !='' ">
+            and t1.code like concat('%',trim(#{code}),'%')
+        </if>
+        <if test="likeCode != null and likeCode !='' ">
+            and t1.code like concat('%',trim(#{likeCode}),'%')
+        </if>
+        <if test="status!=null and status!=100">
+            and t1.status = #{status}
+        </if>
+        <if test="notStatus != null and notStatus != 100">
+            and t1.status != #{notStatus}
+        </if>
+        <if test="status==100">
+            and t1.total_quantity>t1.total_sign_quantity and (t1.status=7 or t1.status=8)
+        </if>
+        <if test="sellerId != null">
+            and t1.seller_id = #{sellerId}
+        </if>
+        <if test="sellerName != null">
+            and t1.seller_name = #{sellerName}
+        </if>
+        <if test="contractId != null">
+            and t1.contract_id = #{contractId}
+        </if>
+        <if test="projectId != null">
+            and t1.project_id = #{projectId}
+        </if>
+        <if test="buyerId != null">
+            and t1.buyer_id = #{buyerId}
+        </if>
+        <if test="buyerType != null">
+            and t1.buyer_type = #{buyerType}
+        </if>
+        <if test="buyerName != null and buyerName !='' ">
+            and t1.buyer_name like concat('%',#{buyerName},'%')
+        </if>
+        <if test="ticketType != null">
+            and t1.ticket_type = #{ticketType}
+        </if>
+        <if test="shippingType != null">
+            and t1.shipping_type = #{shippingType}
+        </if>
+        <if test="fromStorehouse != null">
+            and t1.from_storehouse = #{fromStorehouse}
+        </if>
+        <if test="handler != null">
+            and t1.handler = #{handler}
+        </if>
+        <if test="ticketDate != null">
+            and t1.ticket_date = #{ticketDate}
+        </if>
+        <if test="quantity != null">
+            and t1.quantity = #{quantity}
+        </if>
+        <if test="totalAmount != null">
+            and t1.total_amount = #{totalAmount}
+        </if>
+        <if test="discountAmount != null">
+            and t1.discount_amount = #{discountAmount}
+        </if>
+        <if test="accrueAmount != null">
+            and t1.accrue_amount = #{accrueAmount}
+        </if>
+        <if test="totalExpense != null">
+            and t1.total_expense = #{totalExpense}
+        </if>
+        <if test="createdBy != null">
+            and t1.created_by = #{createdBy}
+        </if>
+        <if test="updatedBy != null">
+            and t1.updated_by = #{updatedBy}
+        </if>
+        <if test="paymentType != null">
+            and t1.payment_type = #{paymentType}
+        </if>
+        <if test="settlementStatus != null">
+            and t1.settlement_status = #{settlementStatus}
+        </if>
+        <if test="paymentStatus != null">
+            and t1.payment_status = #{paymentStatus}
+        </if>
+        <if test="arriveDate != null">
+            and t1.arrive_date = #{arriveDate}
+        </if>
+        <if test="isolationId != null">
+            and t1.isolation_id = #{isolationId}
+        </if>
+        <if test="handlerName != null and handlerName !=''">
+            and t1.handler_name like concat('%',#{handlerName},'%')
+        </if>
+        <if test="department != null">
+            and t1.department = #{department}
+        </if>
+        <if test="payAmount != null">
+            and t1.pay_amount = #{payAmount}
+        </if>
+        <if test="totalQuantity != null">
+            and t1.total_quantity = #{totalQuantity}
+        </if>
+        <if test="createTimeFrom != null">
+            and t1.ticket_date >= #{createTimeFrom}
+        </if>
+        <if test="createTimeTo != null">
+            and t1.ticket_date &lt; DATE_FORMAT(DATE_ADD(#{createTimeTo},INTERVAL 1 DAY),'%Y-%m-%d')
+        </if>
+        <if test="totalSignQuantity != null">
+            and t1.total_sign_quantity = #{totalSignQuantity}
+        </if>
+        <if test="pickQuantity != null">
+            and t1.pick_quantity = #{pickQuantity}
+        </if>
+        <if test="verifyStatus != null">
+            and t1.verify_status = #{verifyStatus}
+        </if>
+        <if test="acceptStatus != null">
+            and t1.accept_status = #{acceptStatus}
+        </if>
+        <if test="partnerId != null">
+            and t1.partner_id = #{partnerId}
+        </if>
+        <if test="customerId != null">
+            and t1.customer_id = #{customerId}
+        </if>
+        <if test="null != customerName and customerName !=''">
+            and t1.customer_name like concat('%',#{customerName},'%')
+        </if>
+        <if test="productId != null">
+            and t1.product_id = #{productId}
+        </if>
+        <if test="partnerName != null and partnerName !='' ">
+            and t1.partner_name like concat('%',#{partnerName},'%')
+        </if>
+        <if test="ascriptionOrgId != null  ">
+            and t1.ascription_Org_Id = #{ascriptionOrgId}
+        </if>
+        <if test="parentSaleOrderId != null  ">
+            and t1.parent_sale_order_id = #{parentSaleOrderId}
+        </if>
+        <if test="parentSaleOrderCode != null  ">
+            and t1.parent_sale_order_code = #{parentSaleOrderCode}
+        </if>
+
+        <if test="notTickType != null and notTickType.size>0 ">
+            and t1.ticket_type not in
+            <foreach collection="notTickType" index="index" item="tickType" open="(" separator="," close=")">
+                #{tickType}
+            </foreach>
+        </if>
+
+        <if test="exceptStatusList!=null and exceptStatusList.size>0">
+            and t1.status not in
+            <foreach collection="exceptStatusList" index="index" item="status" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </if>
+        <if test="paymentStatusList!=null and paymentStatusList.size>0">
+            and t1.payment_status in
+            <foreach collection="paymentStatusList" index="index" item="payment_status" open="(" separator=","
+                     close=")">
+                #{payment_status}
+            </foreach>
+        </if>
+        <if test="null != pricePre">
+            and t1.total_amount &gt;= #{pricePre}
+        </if>
+        <if test="null != priceEnd">
+            and t1.total_amount &lt;= #{priceEnd}
+        </if>
+        <if test="null != consignee">
+            and t2.consignee like concat('%',#{consignee},'%')
+        </if>
+        <if test="null != mobile">
+            and t2.mobile like concat('%',#{mobile},'%')
+        </if>
+        <if test="null != provinceCode">
+            and t2.province_code = #{provinceCode}
+        </if>
+        <if test="null != cityCode">
+            and t2.city_code = #{cityCode}
+        </if>
+        <if test="null != areaCode">
+            and t2.area_code = #{areaCode}
+        </if>
+        <if test="null != arriveDateFrom">
+            and t1.arrive_date &gt;= #{arriveDateFrom}
+        </if>
+        <if test="null != arriveDateTo">
+            and t1.arrive_date &lt; DATE_FORMAT(DATE_ADD(#{arriveDateTo},INTERVAL 1 DAY),'%Y-%m-%d')
+        </if>
+        <if test="null != ticketTypeList and ticketTypeList.size>0">
+            and t1.ticket_type in
+            <foreach collection="ticketTypeList" open="(" separator="," close=")" item="ticketType">
+                #{ticketType}
+            </foreach>
+        </if>
+        <if test="null != statusList and statusList.size>0">
+            and t1.status in
+            <foreach collection="statusList" open="(" separator="," close=")" item="status">
+                #{status}
+            </foreach>
+        </if>
+        <if test="null != buyerTypeList and buyerTypeList.size>0">
+            and t1.buyer_type in
+            <foreach collection="buyerTypeList" open="(" separator="," close=")" item="buyerType">
+                #{buyerType}
+            </foreach>
+        </if>
+        <if test="null != year">
+            and locate(#{year},t1.ticket_date)
+        </if>
+        <if test="null != monthBand">
+            and t1.ticket_date >= #{monthBand}
+        </if>
+        <if test="null != yearBand">
+            and t1.ticket_date &lt;= #{yearBand}
+        </if>
+        <if test="availablePickNumNotZero != null and availablePickNumNotZero == true ">
+            and EXISTS (
+            SELECT
+            item.id
+            FROM
+            sale_order_item item
+            WHERE
+            item.sale_order_id = t1.id
+            AND item.available_pick_num != 0
+            AND item.is_deleted = 0
+            )
+        </if>
+        <if test="productLineIsOther == true">
+            and (
+                ascription_org_Id IS NULL
+                <if test="sellerId != null">
+                    OR ascription_org_Id = #{sellerId}
+                </if>
+            )
+        </if>
+        <if test="planMonthFrom!=null and planMonthFrom!=''">
+            <![CDATA[ and plan_month>=#{planMonthFrom} ]]>
+        </if>
+        <if test="planMonthTo!=null and planMonthTo!=''">
+            <![CDATA[ and plan_month<=#{planMonthTo} ]]>
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_order_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.code != null">
+                        when id = #{item.id} then #{item.code}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.status != null">
+                        when id = #{item.id} then #{item.status}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="seller_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.sellerId != null">
+                        when id = #{item.id} then #{item.sellerId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="seller_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.sellerName != null">
+                        when id = #{item.id} then #{item.sellerName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.buyerId != null">
+                        when id = #{item.id} then #{item.buyerId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.buyerType != null">
+                        when id = #{item.id} then #{item.buyerType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.buyerName != null">
+                        when id = #{item.id} then #{item.buyerName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="ticket_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.ticketType != null">
+                        when id = #{item.id} then #{item.ticketType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shipping_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.shippingType != null">
+                        when id = #{item.id} then #{item.shippingType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="from_storehouse = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.fromStorehouse != null">
+                        when id = #{item.id} then #{item.fromStorehouse}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="handler = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.handler != null">
+                        when id = #{item.id} then #{item.handler}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="ticket_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.ticketDate != null">
+                        when id = #{item.id} then #{item.ticketDate}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.quantity != null">
+                        when id = #{item.id} then #{item.quantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.totalAmount != null">
+                        when id = #{item.id} then #{item.totalAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="discount_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.discountAmount != null">
+                        when id = #{item.id} then #{item.discountAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="accrue_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.accrueAmount != null">
+                        when id = #{item.id} then #{item.accrueAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_expense = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.totalExpense != null">
+                        when id = #{item.id} then #{item.totalExpense}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdBy != null">
+                        when id = #{item.id} then #{item.createdBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedBy != null">
+                        when id = #{item.id} then #{item.updatedBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="payment_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.paymentType != null">
+                        when id = #{item.id} then #{item.paymentType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="settlement_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.settlementStatus != null">
+                        when id = #{item.id} then #{item.settlementStatus}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="payment_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.paymentStatus != null">
+                        when id = #{item.id} then #{item.paymentStatus}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="arrive_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.arriveDate != null">
+                        when id = #{item.id} then #{item.arriveDate}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="isolation_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.isolationId != null">
+                        when id = #{item.id} then #{item.isolationId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="handler_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.handlerName != null">
+                        when id = #{item.id} then #{item.handlerName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="department = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.department != null">
+                        when id = #{item.id} then #{item.department}
+                    </if>
+
+                </foreach>
+            </trim>
+
+            <trim prefix="pay_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.payAmount != null">
+                        when id = #{item.id} then #{item.payAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.totalQuantity != null">
+                        when id = #{item.id} then #{item.totalQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_sign_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.totalSignQuantity != null">
+                        when id = #{item.id} then #{item.totalSignQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickQuantity != null">
+                        when id = #{item.id} then #{item.pickQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="verify_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.verifyStatus != null">
+                        when id = #{item.id} then #{item.verifyStatus}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="accept_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.acceptStatus != null">
+                        when id = #{item.id} then #{item.acceptStatus}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="partner_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.partnerId != null">
+                        when id = #{item.id} then #{item.partnerId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="partner_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.partnerName != null">
+                        when id = #{item.id} then #{item.partnerName}
+                    </if>
+
+                </foreach>
+            </trim>
+
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_order_info
+        ( tenant_id, app_id, version, remark, is_deleted, created_time, updated_time, code, status, seller_id,
+        seller_name, buyer_id, buyer_type, buyer_name, ticket_type, shipping_type, from_storehouse, handler,
+        ticket_date, quantity, total_amount, discount_amount, accrue_amount, total_expense, created_by, updated_by
+        ,payment_type,settlement_status,payment_status,arrive_date,isolation_id,handler_name,department,pay_amount,total_quantity,total_sign_quantity,pick_quantity,verify_status,accept_status
+        ,partner_id,partner_name,customer_id,customer_name,ascription_orgId)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.remark}, #{item.deleted}, #{item.createdTime},
+            #{item.updatedTime}, #{item.code}, #{item.status}, #{item.sellerId}, #{item.sellerName}, #{item.buyerId},
+            #{item.buyerType}, #{item.buyerName}, #{item.ticketType}, #{item.shippingType}, #{item.fromStorehouse},
+            #{item.handler}, #{item.ticketDate}, #{item.quantity}, #{item.totalAmount}, #{item.discountAmount},
+            #{item.accrueAmount}, #{item.totalExpense}, #{item.createdBy}, #{item.updatedBy}, #{item.paymentType},
+            #{item.settlementStatus},
+            #{item.paymentStatus},#{item.arriveDate},#{item.isolationId},#{item.handlerName},#{item.department},#{item.payAmount},#{item.totalQuantity},#{item.totalSignQuantity},#{item.pickQuantity},#{item.verifyStatus},#{item.acceptStatus},#{item.partnerId},#{item.partnerName},#{item.customerId},#{item.customerName},#{item.ascriptionOrgId})
+        </foreach>
+    </insert>
+
+    <update id="updateOrderStatus">
+         UPDATE sale_order_info set status = #{editStatusObj.status} where id = #{editStatusObj.id}
+    </update>
+
+    <update id="updateOrderAmount" parameterType="com.deepexi.dd.middle.order.domain.dto.SaleOrderInfoAmountEditDTO">
+         UPDATE sale_order_info set payment_status=#{dto.status},version=version+1,pay_amount=#{dto.amount}
+
+          <if test="dto.paymentType!=null">
+              ,payment_type=#{dto.paymentType}
+          </if>
+          where id = #{dto.id} and version=#{dto.version}
+    </update>
+
+    <update id="updatePayOrderCode"
+            parameterType="com.deepexi.dd.middle.order.domain.dto.SaleOrderInfoPayOrderCodeEditDTO">
+        UPDATE sale_order_info set pay_order_code=#{dto.payOrderCode},version=version+1 where id = #{dto.id}
+    </update>
+
+    <select id="findList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_order_info t1
+        WHERE t1.is_deleted = 0
+        <if test="id != null">
+            and t1.id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and t1.tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and t1.app_id = #{appId}
+        </if>
+        <if test="status!=null">
+            and t1.status = #{status}
+        </if>
+        <if test="notStatus != null">
+            and t1.status != #{notStatus}
+        </if>
+        <if test="contractId != null">
+            and t1.contract_id = #{contractId}
+        </if>
+        <if test="projectId != null">
+            and t1.project_id = #{projectId}
+        </if>
+        <if test="isolationId != null">
+            and t1.isolation_id = #{isolationId}
+        </if>
+    </select>
+
+    <select id="getPreMonthPlanOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sale_order_info t1
+        where t1.is_deleted = 0 and t1.ticket_type=3
+        and t1.status in(4,5,9)
+        <![CDATA[
+        and t1.plan_month>=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')
+        and t1.plan_month<date_format(curdate(),'%Y-%m') ]]>
+    </select>
+</mapper>

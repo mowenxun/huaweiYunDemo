@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.ShopSupplerRelationMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.ShopSupplerRelationDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="shopOrderId" column="shop_order_id"/>
+
+        <result property="shopOrderCode" column="shop_order_code"/>
+
+        <result property="supplerOrderId" column="suppler_order_id"/>
+
+        <result property="supplerOrderCode" column="suppler_order_code"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_by,
+            created_time,
+            updated_time,
+            updated_by,
+            shop_order_id,
+            shop_order_code,
+            suppler_order_id,
+            suppler_order_code    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE shop_suppler_relation SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shop_suppler_relation
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <!--<if test = "isDeleted != null">
+            and is_deleted = #{isDeleted}
+        </if>-->
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test = "shopOrderId != null">
+            and shop_order_id = #{shopOrderId}
+        </if>
+        <if test = "shopOrderCode != null">
+            and shop_order_code = #{shopOrderCode}
+        </if>
+        <if test = "supplerOrderId != null">
+            and suppler_order_id = #{supplerOrderId}
+        </if>
+        <if test="supplerOrderIds != null and supplerOrderIds.size > 0">
+            and suppler_order_id in
+            <foreach collection="supplerOrderIds" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </if>
+        <if test = "supplerOrderCode != null">
+            and suppler_order_code = #{supplerOrderCode}
+        </if>
+        <if test="shopOrderIds != null and shopOrderIds.size() > 0">
+            and shop_order_id in
+            <foreach item="item" index="index" collection="shopOrderIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE shop_suppler_relation
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedBy != null">
+                            when id = #{item.id} then #{item.updatedBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shop_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.shopOrderId != null">
+                            when id = #{item.id} then #{item.shopOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shop_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.shopOrderCode != null">
+                            when id = #{item.id} then #{item.shopOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="suppler_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.supplerOrderId != null">
+                            when id = #{item.id} then #{item.supplerOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="suppler_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.supplerOrderCode != null">
+                            when id = #{item.id} then #{item.supplerOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO shop_suppler_relation
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_by,           created_time,           updated_time,           updated_by,           shop_order_id,           shop_order_code,           suppler_order_id,           suppler_order_code        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdBy},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.updatedBy},                 #{item.shopOrderId},                 #{item.shopOrderCode},                 #{item.supplerOrderId},                 #{item.supplerOrderCode})
+        </foreach>
+    </insert>
+</mapper>

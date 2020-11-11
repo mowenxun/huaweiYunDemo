@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SalePickGoodsInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SalePickGoodsInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="pickGoodsCode" column="pick_goods_code"/>
+
+        <result property="status" column="status"/>
+
+        <result property="requiredTime" column="required_time"/>
+
+        <result property="pickGoodsWayZt" column="pick_goods_way_zt"/>
+
+        <result property="receiveGoodsMan" column="receive_goods_man"/>
+
+        <result property="carNumberZt" column="car_number_zt"/>
+
+        <result property="contactWay" column="contact_way"/>
+
+        <result property="pickGoodsTimeZt" column="pick_goods_time_zt"/>
+
+        <result property="receiveHouseIdWc" column="receive_house_id_wc"/>
+
+        <result property="receiveHouseNameWc" column="receive_house_name_wc"/>
+
+        <result property="projectNameGd" column="project_name_gd"/>
+
+        <result property="idCardNumber" column="id_card_number"/>
+
+        <result property="receiveAddress" column="receive_address"/>
+
+        <result property="selfPickHouseName" column="self_pick_house_name"/>
+
+        <result property="warehouseAddress" column="warehouse_address"/>
+
+        <result property="warehouseLinkman" column="warehouse_linkman"/>
+
+        <result property="warehouseLinkway" column="warehouse_linkway"/>
+
+        <result property="totalGoodsNumber" column="total_goods_number"/>
+
+        <result property="totalDeliveryQuantity" column="total_delivery_quantity"/>
+
+        <result property="totalSignQuantity" column="total_sign_quantity"/>
+
+        <result property="totalGoodsMoney" column="total_goods_money"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="paymentStatus" column="payment_status"/>
+
+        <result property="payAmount" column="pay_amount"/>
+
+        <result property="paymentType" column="payment_type"/>
+
+        <result property="refundAmount" column="refund_amount"/>
+
+        <result property="isolationId" column="isolation_id"/>
+
+        <result property="productId" column="product_id"/>
+
+        <result property="productName" column="product_name"/>
+
+        <result property="ascriptionOrgId" column="ascription_org_id"/>
+
+        <result property="customerId" column="customer_id"/>
+
+        <result property="customerName" column="customer_name"/>
+
+        <result property="sellerId" column="seller_id"/>
+
+        <result property="sellerName" column="seller_name"/>
+
+        <result property="buyerId" column="buyer_id"/>
+
+        <result property="buyerName" column="buyer_name"/>
+
+        <result property="handler" column="handler"/>
+
+        <result property="handlerName" column="handler_name"/>
+
+        <result property="cancelCause" column="cancel_cause"/>
+
+        <result property="cancelRemarks" column="cancel_remarks"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            is_deleted,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by,
+            pick_goods_code,
+            status,
+            required_time,
+            pick_goods_way_zt,
+            receive_goods_man,
+            car_number_zt,
+            contact_way,
+            pick_goods_time_zt,
+            receive_house_id_wc,
+            receive_house_name_wc,
+            project_name_gd,
+            id_card_number,
+            receive_address,
+            self_pick_house_name,
+            warehouse_address,
+            warehouse_linkman,
+            warehouse_linkway,
+            total_goods_number,
+            total_delivery_quantity,
+            total_sign_quantity,
+            total_goods_money,
+            remark,
+            payment_status,
+            pay_amount,
+            payment_type,
+            refund_amount,
+            isolation_id,
+            product_id,
+            product_name,
+            ascription_org_id,
+            customer_id,
+            customer_name,
+            seller_id,
+            seller_name,
+            buyer_id,
+            buyer_name,
+            handler,
+            handler_name,
+            cancel_cause,
+            cancel_remarks    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_pick_goods_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_pick_goods_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test = "pickGoodsCode != null and pickGoodsCode != ''">
+            and pick_goods_code like CONCAT('%',#{pickGoodsCode},'%')
+        </if>
+        <choose>
+            <when test="status == null or status == '' ">
+
+            </when>
+            <when test="status == 100"> /*可签收*/
+                and IFNULL(total_delivery_quantity,0) - IFNULL(total_sign_quantity,0)
+            </when>
+            <when test="status == 101"> /*可退款*/
+                and IFNULL(pay_amount,0) - IFNULL(total_goods_money,0) - IFNULL(refund_amount,0) > 0
+            </when>
+            <otherwise>
+                and status = #{status}
+            </otherwise>
+        </choose>
+        <if test = "requiredTime != null">
+            and required_time = #{requiredTime}
+        </if>
+        <if test = "pickGoodsWayZt != null">
+            and pick_goods_way_zt = #{pickGoodsWayZt}
+        </if>
+        <if test = "receiveGoodsMan != null">
+            and receive_goods_man = #{receiveGoodsMan}
+        </if>
+        <if test = "carNumberZt != null">
+            and car_number_zt = #{carNumberZt}
+        </if>
+        <if test = "contactWay != null">
+            and contact_way like CONCAT('%',#{contactWay},'%')
+        </if>
+        <if test = "pickGoodsTimeZt != null">
+            and pick_goods_time_zt = #{pickGoodsTimeZt}
+        </if>
+        <if test = "receiveHouseIdWc != null">
+            and receive_house_id_wc = #{receiveHouseIdWc}
+        </if>
+        <if test = "receiveHouseNameWc != null">
+            and receive_house_name_wc = #{receiveHouseNameWc}
+        </if>
+        <if test = "projectNameGd != null">
+            and project_name_gd = #{projectNameGd}
+        </if>
+        <if test = "idCardNumber != null">
+            and id_card_number = #{idCardNumber}
+        </if>
+        <if test = "receiveAddress != null">
+            and receive_address = #{receiveAddress}
+        </if>
+        <if test = "selfPickHouseName != null">
+            and self_pick_house_name = #{selfPickHouseName}
+        </if>
+        <if test = "warehouseAddress != null">
+            and warehouse_address = #{warehouseAddress}
+        </if>
+        <if test = "warehouseLinkman != null">
+            and warehouse_linkman = #{warehouseLinkman}
+        </if>
+        <if test = "warehouseLinkway != null">
+            and warehouse_linkway = #{warehouseLinkway}
+        </if>
+        <if test = "totalGoodsNumber != null">
+            and total_goods_number = #{totalGoodsNumber}
+        </if>
+        <if test = "totalDeliveryQuantity != null">
+            and total_delivery_quantity = #{totalDeliveryQuantity}
+        </if>
+        <if test = "totalSignQuantity != null">
+            and total_sign_quantity = #{totalSignQuantity}
+        </if>
+        <if test = "totalGoodsMoney != null">
+            and total_goods_money = #{totalGoodsMoney}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "paymentStatus != null">
+            and payment_status = #{paymentStatus}
+        </if>
+        <if test = "payAmount != null">
+            and pay_amount = #{payAmount}
+        </if>
+        <if test = "paymentType != null">
+            and payment_type = #{paymentType}
+        </if>
+        <if test = "refundAmount != null">
+            and refund_amount = #{refundAmount}
+        </if>
+        <if test = "isolationId != null">
+            and isolation_id = #{isolationId}
+        </if>
+        <if test = "productId != null">
+            and product_id = #{productId}
+        </if>
+        <if test = "productName != null">
+            and product_name = #{productName}
+        </if>
+        <if test = "ascriptionOrgId != null">
+            and ascription_org_id = #{ascriptionOrgId}
+        </if>
+        <if test = "customerId != null">
+            and customer_id = #{customerId}
+        </if>
+        <if test = "customerName != null">
+            and customer_name like CONCAT('%',#{customerName},'%')
+        </if>
+        <if test = "sellerId != null">
+            and seller_id = #{sellerId}
+        </if>
+        <if test = "sellerName != null">
+            and seller_name = #{sellerName}
+        </if>
+        <if test = "buyerId != null">
+            and buyer_id = #{buyerId}
+        </if>
+        <if test = "buyerName != null">
+            and buyer_name = #{buyerName}
+        </if>
+        <if test = "handler != null">
+            and handler = #{handler}
+        </if>
+        <if test = "cancelCause != null">
+            and cancel_cause = #{cancelCause}
+        </if>
+        <if test = "cancelRemarks != null">
+            and cancel_remarks = #{cancelRemarks}
+        </if>
+        <if test = "handlerName != null">
+            and handler_name = #{handlerName}
+        </if>
+        <if test="createTimeBegin != null">
+            AND created_time <![CDATA[>=]]>   #{createTimeBegin}
+        </if>
+        <if test="createTimeEnd != null">
+            AND created_time <![CDATA[<=]]> #{createTimeEnd}
+        </if>
+        <if test = "likePickGoodsCode != null and likePickGoodsCode != ''">
+            AND sale_pick_goods_info.pick_goods_code LIKE CONCAT('%',#{likePickGoodsCode},'%')
+        </if>
+        <if test = "likeSkuName != null and likeSkuName != ''">
+            AND EXISTS (
+                SELECT
+                    sku.id
+                FROM
+                    sale_pick_goods_order_sku sku
+                WHERE
+                    sku.pick_goods_info_id = sale_pick_goods_info.id
+                AND sku.sku_name LIKE CONCAT('%',#{likeSkuName},'%')
+            )
+        </if>
+        <if test = "likeSkuCode != null and likeSkuCode != ''">
+            AND EXISTS (
+                SELECT
+                    sku.id
+                FROM
+                    sale_pick_goods_order_sku sku
+                WHERE
+                    sku.pick_goods_info_id = sale_pick_goods_info.id
+                AND sku.sku_code LIKE CONCAT('%',#{likeSkuCode},'%')
+            )
+        </if>
+        <if test = "queryKeywords != null">
+            AND (
+                sale_pick_goods_info.pick_goods_code LIKE CONCAT('%',#{queryKeywords},'%')
+                OR EXISTS (
+                    SELECT
+                        sku.id
+                    FROM
+                        sale_pick_goods_order_sku sku
+                    WHERE
+                        sku.pick_goods_info_id = sale_pick_goods_info.id
+                        AND sku.sku_name LIKE CONCAT('%',#{queryKeywords},'%')
+                )
+                OR EXISTS (
+                    SELECT
+                        sku.id
+                    FROM
+                        sale_pick_goods_order_sku sku
+                    WHERE
+                        sku.pick_goods_info_id = sale_pick_goods_info.id
+                        AND sku.sku_code LIKE CONCAT('%',#{queryKeywords},'%')
+                )
+            )
+        </if>
+        <if test = "exceptStatusList!=null and exceptStatusList.size>0">
+            and status not in
+            <foreach collection="exceptStatusList" index="index" item="status" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </if>
+        <if test="createTimeFrom != null">
+            AND created_time <![CDATA[>=]]>   #{createTimeFrom}
+        </if>
+        <if test="createTimeTo != null">
+            AND created_time <![CDATA[<=]]> #{createTimeTo}
+        </if>
+        <if test="requiredTimeFrom != null">
+            AND required_time <![CDATA[>=]]>   #{requiredTimeFrom}
+        </if>
+        <if test="requiredTimeTo != null">
+            AND required_time <![CDATA[<=]]> #{requiredTimeTo}
+        </if>
+
+
+        <if test = "sortField == null or sortField == ''">
+            ORDER BY created_time DESC
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_pick_goods_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedBy != null">
+                            when id = #{item.id} then #{item.updatedBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.pickGoodsCode != null">
+                            when id = #{item.id} then #{item.pickGoodsCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.status != null">
+                            when id = #{item.id} then #{item.status}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="required_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.requiredTime != null">
+                            when id = #{item.id} then #{item.requiredTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_way_zt = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.pickGoodsWayZt != null">
+                            when id = #{item.id} then #{item.pickGoodsWayZt}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_goods_man = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveGoodsMan != null">
+                            when id = #{item.id} then #{item.receiveGoodsMan}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="car_number_zt = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.carNumberZt != null">
+                            when id = #{item.id} then #{item.carNumberZt}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="contact_way = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.contactWay != null">
+                            when id = #{item.id} then #{item.contactWay}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_time_zt = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.pickGoodsTimeZt != null">
+                            when id = #{item.id} then #{item.pickGoodsTimeZt}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_house_id_wc = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveHouseIdWc != null">
+                            when id = #{item.id} then #{item.receiveHouseIdWc}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_house_name_wc = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveHouseNameWc != null">
+                            when id = #{item.id} then #{item.receiveHouseNameWc}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="project_name_gd = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.projectNameGd != null">
+                            when id = #{item.id} then #{item.projectNameGd}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="id_card_number = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.idCardNumber != null">
+                            when id = #{item.id} then #{item.idCardNumber}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_address = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveAddress != null">
+                            when id = #{item.id} then #{item.receiveAddress}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="self_pick_house_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.selfPickHouseName != null">
+                            when id = #{item.id} then #{item.selfPickHouseName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="warehouse_address = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.warehouseAddress != null">
+                            when id = #{item.id} then #{item.warehouseAddress}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="warehouse_linkman = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.warehouseLinkman != null">
+                            when id = #{item.id} then #{item.warehouseLinkman}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="warehouse_linkway = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.warehouseLinkway != null">
+                            when id = #{item.id} then #{item.warehouseLinkway}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_goods_number = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.totalGoodsNumber != null">
+                            when id = #{item.id} then #{item.totalGoodsNumber}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_delivery_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.totalDeliveryQuantity != null">
+                            when id = #{item.id} then #{item.totalDeliveryQuantity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_sign_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.totalSignQuantity != null">
+                            when id = #{item.id} then #{item.totalSignQuantity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_goods_money = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.totalGoodsMoney != null">
+                            when id = #{item.id} then #{item.totalGoodsMoney}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="payment_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.paymentStatus != null">
+                            when id = #{item.id} then #{item.paymentStatus}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.payAmount != null">
+                            when id = #{item.id} then #{item.payAmount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="payment_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.paymentType != null">
+                            when id = #{item.id} then #{item.paymentType}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.refundAmount != null">
+                            when id = #{item.id} then #{item.refundAmount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="isolation_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.isolationId != null">
+                            when id = #{item.id} then #{item.isolationId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="product_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.productId != null">
+                            when id = #{item.id} then #{item.productId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="product_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.productName != null">
+                            when id = #{item.id} then #{item.productName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="ascription_org_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.ascriptionOrgId != null">
+                            when id = #{item.id} then #{item.ascriptionOrgId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="customer_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.customerId != null">
+                            when id = #{item.id} then #{item.customerId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="customer_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.customerName != null">
+                            when id = #{item.id} then #{item.customerName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="seller_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.sellerId != null">
+                            when id = #{item.id} then #{item.sellerId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="seller_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.sellerName != null">
+                            when id = #{item.id} then #{item.sellerName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.buyerId != null">
+                            when id = #{item.id} then #{item.buyerId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="buyer_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.buyerName != null">
+                            when id = #{item.id} then #{item.buyerName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="handler = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.handler != null">
+                            when id = #{item.id} then #{item.handler}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="handler_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.handlerName != null">
+                            when id = #{item.id} then #{item.handlerName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="cancel_cause = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.cancelCause != null">
+                            when id = #{item.id} then #{item.cancelCause}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="cancel_remarks = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.cancelRemarks != null">
+                            when id = #{item.id} then #{item.cancelRemarks}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO sale_pick_goods_info
+        (           tenant_id,           app_id,           version,           is_deleted,           created_time,           updated_time,           created_by,           updated_by,           pick_goods_code,           status,           required_time,           pick_goods_way_zt,           receive_goods_man,           car_number_zt,           contact_way,           pick_goods_time_zt,           receive_house_id_wc,           receive_house_name_wc,           project_name_gd,           id_card_number,           receive_address,           self_pick_house_name,           warehouse_address,           warehouse_linkman,           warehouse_linkway,           total_goods_number,           total_delivery_quantity,           total_sign_quantity,           total_goods_money,           remark,           payment_status,           pay_amount,           payment_type,           refund_amount,           isolation_id,           product_id,           product_name,           ascription_org_id,           customer_id,           customer_name,           seller_id,           seller_name,           buyer_id,           buyer_name,           handler,           handler_name,           cancel_cause,           cancel_remarks        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.deleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.createdBy},                 #{item.updatedBy},                 #{item.pickGoodsCode},                 #{item.status},                 #{item.requiredTime},                 #{item.pickGoodsWayZt},                 #{item.receiveGoodsMan},                 #{item.carNumberZt},                 #{item.contactWay},                 #{item.pickGoodsTimeZt},                 #{item.receiveHouseIdWc},                 #{item.receiveHouseNameWc},                 #{item.projectNameGd},                 #{item.idCardNumber},                 #{item.receiveAddress},                 #{item.selfPickHouseName},                 #{item.warehouseAddress},                 #{item.warehouseLinkman},                 #{item.warehouseLinkway},                 #{item.totalGoodsNumber},                 #{item.totalDeliveryQuantity},                 #{item.totalSignQuantity},                 #{item.totalGoodsMoney},                 #{item.remark},                 #{item.paymentStatus},                 #{item.payAmount},                 #{item.paymentType},                 #{item.refundAmount},                 #{item.isolationId},                 #{item.productId},                 #{item.productName},                 #{item.ascriptionOrgId},                 #{item.customerId},                 #{item.customerName},                 #{item.sellerId},                 #{item.sellerName},                 #{item.buyerId},                 #{item.buyerName},                 #{item.handler},                 #{item.handlerName},                 #{item.cancelCause},                 #{item.cancelRemarks})
+        </foreach>
+    </insert>
+
+    <update id="updateOrderStatus">
+         UPDATE sale_pick_goods_info set status = #{editStatusObj.status} where id = #{editStatusObj.id}
+    </update>
+
+    <update id="updateOrderAmount" parameterType="com.deepexi.dd.middle.order.domain.dto.SaleOrderInfoAmountEditDTO">
+         UPDATE sale_pick_goods_info set payment_status=#{dto.status},version=version+1,pay_amount=#{dto.amount} where id = #{dto.id} and version=#{dto.version}
+    </update>
+
+    <select id="searchPickGoodsList"
+            resultType="com.deepexi.dd.middle.order.domain.dto.SalePickGoodsOrderSkuResponseDTO">
+        SELECT
+	    t1.pick_goods_code,
+	    t1.required_time,
+	    t3.*
+        FROM
+	    sale_pick_goods_info t1
+	    LEFT JOIN sale_pick_goods_order t2
+	    ON t2.pick_goods_info_id = t1.id
+	    AND t2.is_deleted = t1.is_deleted
+	    LEFT JOIN
+	    sale_pick_goods_order_sku t3
+	    ON t3.pick_goods_order_id = t2.id
+	    AND t2.is_deleted = t3.is_deleted
+        WHERE
+	    t1.is_deleted = 0
+	    AND t2.sale_order_id = #{saleOrderId}
+    </select>
+
+    <select id="selectByPickCode"
+            parameterType="com.deepexi.dd.middle.order.domain.query.SalePickGoodsInfoRequestQuery"
+            resultType="com.deepexi.dd.middle.order.domain.dto.SalePickGoodsInfoResponseDTO">
+            SELECT
+            <include refid="Base_Column_List"/>
+             FROM sale_pick_goods_info
+             WHERE pick_goods_code = #{pickGoodsCode}
+    </select>
+</mapper>

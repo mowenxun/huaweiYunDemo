@@ -1,0 +1,3573 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "swagger导入dapi demo",
+    "version" : "v1",
+    "title" : "swagger导入dapi demo",
+    "termsOfService" : "http://www.github.com/kongchen/swagger-maven-plugin",
+    "contact" : {
+      "name" : "deepexi",
+      "url" : "www.deepexi.com",
+      "email" : "deepexi@deepexi.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "petstore.swagger.wordnik.com",
+  "basePath" : "/api",
+  "tags" : [ {
+    "name" : "优惠信息表管理"
+  }, {
+    "name" : "收货地址信息表管理"
+  }, {
+    "name" : "订单的开票信息表管理"
+  }, {
+    "name" : "销售出库单物流信息管理"
+  }, {
+    "name" : "销售出库单（出库任务单）管理"
+  }, {
+    "name" : "销售订单明细表管理"
+  }, {
+    "name" : "销售订单的促销信息表管理"
+  }, {
+    "name" : "销售订单的费用信息表管理"
+  }, {
+    "name" : "销售订单表管理"
+  }, {
+    "name" : "销售订单退货单信息表管理"
+  }, {
+    "name" : "销售订单退货明细表管理"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/middle/v1/saleOrderInfos/list" : {
+      "get" : {
+        "summary" : "查询销售订单表列表",
+        "description" : "",
+        "operationId" : "listSaleOrderInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PayloadListSaleOrderInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/middle/v1/saleOrderInfos/page" : {
+      "get" : {
+        "summary" : "分页查询销售订单表列表",
+        "description" : "",
+        "operationId" : "listSaleOrderInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PayloadPageBeanSaleOrderInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/middle/v1/saleOrderInfos/updateOrderStatus" : {
+      "put" : {
+        "tags" : [ "销售订单表管理" ],
+        "operationId" : "updateOrderStatus",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SaleOrderInfoStatusEditRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PayloadBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/middle/v1/saleOrderInfos/{id}" : {
+      "get" : {
+        "tags" : [ "销售订单表管理" ],
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PayloadSaleOrderInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售订单表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SaleOrderInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PayloadBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderConsigneeInfos/list" : {
+      "get" : {
+        "summary" : "查询收货地址信息表列表",
+        "description" : "",
+        "operationId" : "listOrderConsigneeInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderConsigneeInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderConsigneeInfos/page" : {
+      "get" : {
+        "summary" : "分页查询收货地址信息表列表",
+        "description" : "",
+        "operationId" : "listOrderConsigneeInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderConsigneeInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderConsigneeInfos/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询收货地址信息表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderConsigneeInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新收货地址信息表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderConsigneeInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderCouponInfos/list" : {
+      "get" : {
+        "tags" : [ "优惠信息表管理" ],
+        "operationId" : "listOrderCouponInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderCouponInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderCouponInfos/page" : {
+      "get" : {
+        "tags" : [ "优惠信息表管理" ],
+        "operationId" : "listOrderCouponInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderCouponInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderCouponInfos/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询优惠信息表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderCouponInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "优惠信息表管理" ],
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderCouponInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderDeliveryInfos/list" : {
+      "get" : {
+        "tags" : [ "销售出库单物流信息管理" ],
+        "operationId" : "listOrderDeliveryInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderDeliveryInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderDeliveryInfos/page" : {
+      "get" : {
+        "summary" : "分页查询销售出库单物流信息列表",
+        "description" : "",
+        "operationId" : "listOrderDeliveryInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderDeliveryInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderDeliveryInfos/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询销售出库单物流信息",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderDeliveryInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "销售出库单物流信息管理" ],
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderDeliveryInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderExpenseInfos/list" : {
+      "get" : {
+        "summary" : "查询销售订单的费用信息表列表",
+        "description" : "",
+        "operationId" : "listOrderExpenseInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderExpenseInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderExpenseInfos/page" : {
+      "get" : {
+        "summary" : "分页查询销售订单的费用信息表列表",
+        "description" : "",
+        "operationId" : "listOrderExpenseInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderExpenseInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderExpenseInfos/{id}" : {
+      "get" : {
+        "tags" : [ "销售订单的费用信息表管理" ],
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderExpenseInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售订单的费用信息表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderExpenseInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderInvoiceInfos/list" : {
+      "get" : {
+        "summary" : "查询订单的开票信息表列表",
+        "description" : "",
+        "operationId" : "listOrderInvoiceInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderInvoiceInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderInvoiceInfos/page" : {
+      "get" : {
+        "tags" : [ "订单的开票信息表管理" ],
+        "operationId" : "listOrderInvoiceInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderInvoiceInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderInvoiceInfos/{id}" : {
+      "get" : {
+        "tags" : [ "订单的开票信息表管理" ],
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderInvoiceInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新订单的开票信息表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderInvoiceInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderPromotionInfos/list" : {
+      "get" : {
+        "tags" : [ "销售订单的促销信息表管理" ],
+        "operationId" : "listOrderPromotionInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderPromotionInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderPromotionInfos/page" : {
+      "get" : {
+        "tags" : [ "销售订单的促销信息表管理" ],
+        "operationId" : "listOrderPromotionInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderPromotionInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderPromotionInfos/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询销售订单的促销信息表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderPromotionInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "销售订单的促销信息表管理" ],
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderPromotionInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnInfos/list" : {
+      "get" : {
+        "summary" : "查询销售订单退货单信息表列表",
+        "description" : "",
+        "operationId" : "listOrderReturnInfos",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderReturnInfoResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnInfos/page" : {
+      "get" : {
+        "tags" : [ "销售订单退货单信息表管理" ],
+        "operationId" : "listOrderReturnInfosPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderReturnInfoResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnInfos/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询销售订单退货单信息表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderReturnInfoResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售订单退货单信息表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderReturnInfoRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnItems/list" : {
+      "get" : {
+        "summary" : "查询销售订单退货明细表列表",
+        "description" : "",
+        "operationId" : "listOrderReturnItems",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OrderReturnItemResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnItems/page" : {
+      "get" : {
+        "tags" : [ "销售订单退货明细表管理" ],
+        "operationId" : "listOrderReturnItemsPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanOrderReturnItemResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/orderReturnItems/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询销售订单退货明细表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderReturnItemResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售订单退货明细表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/OrderReturnItemRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/saleOrderItems/list" : {
+      "get" : {
+        "tags" : [ "销售订单明细表管理" ],
+        "operationId" : "listSaleOrderItems",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SaleOrderItemResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/saleOrderItems/page" : {
+      "get" : {
+        "tags" : [ "销售订单明细表管理" ],
+        "operationId" : "listSaleOrderItemsPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanSaleOrderItemResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/saleOrderItems/{id}" : {
+      "get" : {
+        "summary" : "根据ID查询销售订单明细表",
+        "description" : "",
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SaleOrderItemResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售订单明细表",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SaleOrderItemRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/saleOutTasks/list" : {
+      "get" : {
+        "summary" : "查询销售出库单（出库任务单）列表",
+        "description" : "",
+        "operationId" : "listSaleOutTasks",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SaleOutTaskResponseDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/saleOutTasks/page" : {
+      "get" : {
+        "tags" : [ "销售出库单（出库任务单）管理" ],
+        "operationId" : "listSaleOutTasksPage",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageBeanSaleOutTaskResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/saleOutTasks/{id}" : {
+      "get" : {
+        "tags" : [ "销售出库单（出库任务单）管理" ],
+        "operationId" : "selectById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SaleOutTaskResponseDTO"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "根据ID更新销售出库单（出库任务单）",
+        "description" : "",
+        "operationId" : "updateById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SaleOutTaskRequestDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "OrderConsigneeInfoRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "provinceCode" : {
+          "type" : "string",
+          "description" : "省份编号"
+        },
+        "provinceName" : {
+          "type" : "string",
+          "description" : "省份名称"
+        },
+        "cityCode" : {
+          "type" : "string",
+          "description" : "城市编号"
+        },
+        "cityName" : {
+          "type" : "string",
+          "description" : "城市名称"
+        },
+        "areaCode" : {
+          "type" : "string",
+          "description" : "区域编号"
+        },
+        "areaName" : {
+          "type" : "string",
+          "description" : "区域名称"
+        },
+        "streetCode" : {
+          "type" : "string",
+          "description" : "街道编号"
+        },
+        "streetName" : {
+          "type" : "string",
+          "description" : "街道名称"
+        },
+        "consignee" : {
+          "type" : "string",
+          "description" : "收货人"
+        },
+        "mobile" : {
+          "type" : "string",
+          "description" : "手机号码"
+        }
+      },
+      "description" : "OrderConsigneeInfoRequestDTO"
+    },
+    "OrderConsigneeInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "provinceCode" : {
+          "type" : "string",
+          "description" : "省份编号"
+        },
+        "provinceName" : {
+          "type" : "string",
+          "description" : "省份名称"
+        },
+        "cityCode" : {
+          "type" : "string",
+          "description" : "城市编号"
+        },
+        "cityName" : {
+          "type" : "string",
+          "description" : "城市名称"
+        },
+        "areaCode" : {
+          "type" : "string",
+          "description" : "区域编号"
+        },
+        "areaName" : {
+          "type" : "string",
+          "description" : "区域名称"
+        },
+        "streetCode" : {
+          "type" : "string",
+          "description" : "街道编号"
+        },
+        "streetName" : {
+          "type" : "string",
+          "description" : "街道名称"
+        },
+        "consignee" : {
+          "type" : "string",
+          "description" : "收货人"
+        },
+        "mobile" : {
+          "type" : "string",
+          "description" : "手机号码"
+        }
+      },
+      "description" : "OrderConsigneeInfoResponseDTO"
+    },
+    "OrderCouponInfoRequestDTO" : {
+      "type" : "object",
+      "required" : [ "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "couponId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "优惠券ID"
+        },
+        "couponCode" : {
+          "type" : "string",
+          "description" : "优惠券编码"
+        },
+        "couponType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "优惠券类型"
+        },
+        "couponName" : {
+          "type" : "string",
+          "description" : "优惠券名称"
+        },
+        "couponQuntity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "优惠券数量"
+        },
+        "faceValue" : {
+          "type" : "number",
+          "description" : "面值金额"
+        },
+        "couponRule" : {
+          "type" : "string",
+          "description" : "优惠规则"
+        },
+        "expiredTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "优惠券过期时间"
+        },
+        "skuIds" : {
+          "type" : "string",
+          "description" : "sku商品ids"
+        },
+        "skuNames" : {
+          "type" : "string",
+          "description" : "sku名称、规格"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠金额"
+        }
+      },
+      "description" : "优惠券对象"
+    },
+    "OrderCouponInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "couponId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "优惠券ID"
+        },
+        "couponCode" : {
+          "type" : "string",
+          "description" : "优惠券编码"
+        },
+        "couponType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "优惠券类型"
+        },
+        "couponName" : {
+          "type" : "string",
+          "description" : "优惠券名称"
+        },
+        "couponQuntity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "优惠券数量"
+        },
+        "faceValue" : {
+          "type" : "number",
+          "description" : "面值金额"
+        },
+        "couponRule" : {
+          "type" : "string",
+          "description" : "优惠规则"
+        },
+        "expiredTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "优惠券过期时间"
+        },
+        "skuIds" : {
+          "type" : "string",
+          "description" : "sku商品ids"
+        },
+        "skuNames" : {
+          "type" : "string",
+          "description" : "sku名称、规格"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠金额"
+        }
+      },
+      "description" : "OrderCouponInfoResponseDTO"
+    },
+    "OrderDeliveryInfoRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "是否删除,0否,1是"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOutTaskId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售出库单ID"
+        },
+        "saleOutTaskCode" : {
+          "type" : "string",
+          "description" : "销售出库单编号"
+        },
+        "deliveryName" : {
+          "type" : "string",
+          "description" : "物流公司名称"
+        },
+        "deliveryCode" : {
+          "type" : "string",
+          "description" : "物流编号"
+        },
+        "deliveryTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "物流投递时间"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        }
+      },
+      "description" : "OrderDeliveryInfoRequestDTO"
+    },
+    "OrderDeliveryInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "是否删除,0否,1是"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOutTaskId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售出库单ID"
+        },
+        "saleOutTaskCode" : {
+          "type" : "string",
+          "description" : "销售出库单编号"
+        },
+        "deliveryName" : {
+          "type" : "string",
+          "description" : "物流公司名称"
+        },
+        "deliveryCode" : {
+          "type" : "string",
+          "description" : "物流编号"
+        },
+        "deliveryTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "物流投递时间"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        }
+      },
+      "description" : "OrderDeliveryInfoResponseDTO"
+    },
+    "OrderExpenseInfoRequestDTO" : {
+      "type" : "object",
+      "required" : [ "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "费用金额"
+        },
+        "policyType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "费用类型"
+        },
+        "policyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "费用ID"
+        },
+        "policyName" : {
+          "type" : "string",
+          "description" : "费用名称"
+        },
+        "canReturn" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "是否可退(0,不可退,1,可退)"
+        }
+      },
+      "description" : "OrderExpenseInfoRequestDTO"
+    },
+    "OrderExpenseInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "费用金额"
+        },
+        "policyType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "费用类型"
+        },
+        "policyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "费用ID"
+        },
+        "policyName" : {
+          "type" : "string",
+          "description" : "费用名称"
+        },
+        "canReturn" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "是否可退(0,不可退,1,可退)"
+        }
+      },
+      "description" : "OrderExpenseInfoResponseDTO"
+    },
+    "OrderInvoiceInfoRequestDTO" : {
+      "type" : "object",
+      "required" : [ "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "invoiceTitle" : {
+          "type" : "string",
+          "description" : "发票抬头"
+        },
+        "bankName" : {
+          "type" : "string",
+          "description" : "开户行"
+        },
+        "accountName" : {
+          "type" : "string",
+          "description" : "开户名称"
+        },
+        "accountNo" : {
+          "type" : "string",
+          "description" : "开户账号"
+        },
+        "taxNo" : {
+          "type" : "string"
+        }
+      },
+      "description" : "OrderInvoiceInfoRequestDTO"
+    },
+    "OrderInvoiceInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "invoiceTitle" : {
+          "type" : "string",
+          "description" : "发票抬头"
+        },
+        "bankName" : {
+          "type" : "string",
+          "description" : "开户行"
+        },
+        "accountName" : {
+          "type" : "string",
+          "description" : "开户名称"
+        },
+        "accountNo" : {
+          "type" : "string",
+          "description" : "开户账号"
+        },
+        "taxNo" : {
+          "type" : "string"
+        }
+      },
+      "description" : "OrderInvoiceInfoResponseDTO"
+    },
+    "OrderPromotionInfoRequestDTO" : {
+      "type" : "object",
+      "required" : [ "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "promotionType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "促销类型"
+        },
+        "promotionId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "促销ID"
+        },
+        "promotionName" : {
+          "type" : "string",
+          "description" : "促销名称"
+        },
+        "promotionSpec" : {
+          "type" : "string",
+          "description" : "促销描述"
+        },
+        "promotionRule" : {
+          "type" : "string",
+          "description" : "促销规则"
+        },
+        "startTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "促销开始时间"
+        },
+        "endTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "促销结束时间"
+        },
+        "skuIds" : {
+          "type" : "string",
+          "description" : "sku商品ID集合"
+        },
+        "skuNames" : {
+          "type" : "string",
+          "description" : "sku名称、规格"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠金额"
+        }
+      },
+      "description" : "促销活动"
+    },
+    "OrderPromotionInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "promotionType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "促销类型"
+        },
+        "promotionId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "促销ID"
+        },
+        "promotionName" : {
+          "type" : "string",
+          "description" : "促销名称"
+        },
+        "promotionSpec" : {
+          "type" : "string",
+          "description" : "促销描述"
+        },
+        "promotionRule" : {
+          "type" : "string",
+          "description" : "促销规则"
+        },
+        "startTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "促销开始时间"
+        },
+        "endTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "促销结束时间"
+        },
+        "skuIds" : {
+          "type" : "string",
+          "description" : "sku商品ID集合"
+        },
+        "skuNames" : {
+          "type" : "string",
+          "description" : "sku名称、规格"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠金额"
+        }
+      },
+      "description" : "OrderPromotionInfoResponseDTO"
+    },
+    "OrderReturnInfoRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "退单编号"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "退单状态"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "卖家ID"
+        },
+        "sellerName" : {
+          "type" : "string",
+          "description" : "卖家名称"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "客户ID"
+        },
+        "buyerType" : {
+          "type" : "string",
+          "description" : "下单类型:(agent:代客下单,mall:商城下单)"
+        },
+        "buyerName" : {
+          "type" : "string",
+          "description" : "客户名称"
+        },
+        "ticketType" : {
+          "type" : "string",
+          "description" : "单据类型(ordinary:普通销售单)"
+        },
+        "shippingType" : {
+          "type" : "string",
+          "description" : "送货方式(logistics:物流配送)"
+        },
+        "toStorehouse" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "入库仓库"
+        },
+        "handler" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "经手人"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "expectDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "收货日期"
+        },
+        "returnMode" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "退货方式。0：按单退货。1：按商品退货。"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "原销售订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "原订单编号"
+        },
+        "canReturnAmount" : {
+          "type" : "number",
+          "description" : "退还金额"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        }
+      },
+      "description" : "OrderReturnInfoRequestDTO"
+    },
+    "OrderReturnInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1：删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "退单编号"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "退单状态"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "卖家ID"
+        },
+        "sellerName" : {
+          "type" : "string",
+          "description" : "卖家名称"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "客户ID"
+        },
+        "buyerType" : {
+          "type" : "string",
+          "description" : "下单类型:(agent:代客下单,mall:商城下单)"
+        },
+        "buyerName" : {
+          "type" : "string",
+          "description" : "客户名称"
+        },
+        "ticketType" : {
+          "type" : "string",
+          "description" : "单据类型(ordinary:普通销售单)"
+        },
+        "shippingType" : {
+          "type" : "string",
+          "description" : "送货方式(logistics:物流配送)"
+        },
+        "toStorehouse" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "入库仓库"
+        },
+        "handler" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "经手人"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "expectDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "收货日期"
+        },
+        "returnMode" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "退货方式。0：按单退货。1：按商品退货。"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "原销售订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "原订单编号"
+        },
+        "canReturnAmount" : {
+          "type" : "number",
+          "description" : "退还金额"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        }
+      },
+      "description" : "OrderReturnInfoResponseDTO"
+    },
+    "OrderReturnItemRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "orderReturnId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "退单ID"
+        },
+        "orderReturnCode" : {
+          "type" : "string",
+          "description" : "退单编号"
+        },
+        "unitId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计价单位"
+        },
+        "skuId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品ID"
+        },
+        "skuName" : {
+          "type" : "string",
+          "description" : "商品名称"
+        },
+        "skuCode" : {
+          "type" : "string",
+          "description" : "商品编号"
+        },
+        "skuFormat" : {
+          "type" : "string",
+          "description" : "商品规格"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品数量"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "销售订单编号"
+        },
+        "saleOrderItem" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售订单明细ID"
+        },
+        "price" : {
+          "type" : "number",
+          "description" : "单价"
+        },
+        "taxRate" : {
+          "type" : "number",
+          "description" : "税率"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "金额小计（含税）"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "优惠后金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠分摊金额"
+        },
+        "costPrice" : {
+          "type" : "number",
+          "description" : "成本价（单价)"
+        },
+        "pricePolicyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "价格政策标识"
+        },
+        "returnQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "退货数量"
+        }
+      },
+      "description" : "OrderReturnItemRequestDTO"
+    },
+    "OrderReturnItemResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "orderReturnId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "退单ID"
+        },
+        "orderReturnCode" : {
+          "type" : "string",
+          "description" : "退单编号"
+        },
+        "unitId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计价单位"
+        },
+        "skuId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品ID"
+        },
+        "skuName" : {
+          "type" : "string",
+          "description" : "商品名称"
+        },
+        "skuCode" : {
+          "type" : "string",
+          "description" : "商品编号"
+        },
+        "skuFormat" : {
+          "type" : "string",
+          "description" : "商品规格"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品数量"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "销售订单编号"
+        },
+        "saleOrderItem" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "销售订单明细ID"
+        },
+        "price" : {
+          "type" : "number",
+          "description" : "单价"
+        },
+        "taxRate" : {
+          "type" : "number",
+          "description" : "税率"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "金额小计（含税）"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "优惠后金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠分摊金额"
+        },
+        "costPrice" : {
+          "type" : "number",
+          "description" : "成本价（单价)"
+        },
+        "pricePolicyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "价格政策标识"
+        },
+        "returnQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "退货数量"
+        }
+      },
+      "description" : "OrderReturnItemResponseDTO"
+    },
+    "PageBean" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderConsigneeInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderConsigneeInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderCouponInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderCouponInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderDeliveryInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderDeliveryInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderExpenseInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderExpenseInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderInvoiceInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderInvoiceInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderPromotionInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderPromotionInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderReturnInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderReturnInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanOrderReturnItemResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OrderReturnItemResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanSaleOrderInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SaleOrderInfoResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanSaleOrderItemResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SaleOrderItemResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PageBeanSaleOutTaskResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SaleOutTaskResponseDTO"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Payload" : {
+      "type" : "object",
+      "properties" : {
+        "payload" : {
+          "type" : "object"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PayloadBoolean" : {
+      "type" : "object",
+      "properties" : {
+        "payload" : {
+          "type" : "boolean"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PayloadListSaleOrderInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "payload" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SaleOrderInfoResponseDTO"
+          }
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PayloadPageBeanSaleOrderInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "payload" : {
+          "$ref" : "#/definitions/PageBeanSaleOrderInfoResponseDTO"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PayloadSaleOrderInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "payload" : {
+          "$ref" : "#/definitions/SaleOrderInfoResponseDTO"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SaleOrderInfoRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "APP标识"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "订单状态:draft 草稿,accept 待接单,deliver 待发货,receipt 待收货,examining 接单审核中,reject 接单驳回，payment 待付款，paid 收款待确认，over 交易完成，cancel 已取消"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "供货商ID"
+        },
+        "sellerName" : {
+          "type" : "string",
+          "description" : "供货商名称"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "客户ID"
+        },
+        "buyerType" : {
+          "type" : "string",
+          "description" : "下单类型:(agent:代客下单,mall:h5商城下单)"
+        },
+        "buyerName" : {
+          "type" : "string",
+          "description" : "客户名称"
+        },
+        "ticketType" : {
+          "type" : "string",
+          "description" : "单据类型(ordinary:普通销售单)"
+        },
+        "shippingType" : {
+          "type" : "string",
+          "description" : "送货方式(logistics:物流配送)"
+        },
+        "shipmentStatus" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "出库状态 0:未出库,1已出库"
+        },
+        "fromStorehouse" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "发货仓库"
+        },
+        "handler" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "经手人"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "总商品金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "促销优惠金额"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "应收金额"
+        },
+        "totalExpense" : {
+          "type" : "number",
+          "description" : "费用小计"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        },
+        "paymentType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "支付类型:1线下支付,2信用支付"
+        },
+        "settlementStatus" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "结算状态 0:未结算,1:已结算,2:部分结算"
+        },
+        "paymentStatus" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "支付状态 0:未付款,1:已付款,2:部分付款"
+        },
+        "arriveDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "要求送达日期"
+        }
+      },
+      "description" : "SaleOrderInfoRequestDTO"
+    },
+    "SaleOrderInfoResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "APP标识"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "订单状态"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "卖家ID"
+        },
+        "sellerName" : {
+          "type" : "string",
+          "description" : "卖家名称"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "客户ID"
+        },
+        "buyerType" : {
+          "type" : "string",
+          "description" : "下单类型:(agent:代客下单,mall:商城下单)"
+        },
+        "buyerName" : {
+          "type" : "string",
+          "description" : "客户名称"
+        },
+        "ticketType" : {
+          "type" : "string",
+          "description" : "单据类型(ordinary:普通销售单)"
+        },
+        "shippingType" : {
+          "type" : "string",
+          "description" : "送货方式(logistics:物流配送)"
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品总数"
+        },
+        "fromStorehouse" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "发货仓库"
+        },
+        "handler" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "经手人"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "总商品金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "促销优惠金额"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "应收金额"
+        },
+        "totalExpense" : {
+          "type" : "number",
+          "description" : "费用小计"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "description" : "创建人"
+        },
+        "updatedBy" : {
+          "type" : "string",
+          "description" : "更新人"
+        }
+      },
+      "description" : "SaleOrderInfoResponseDTO"
+    },
+    "SaleOrderInfoStatusEditRequestDTO" : {
+      "type" : "object",
+      "required" : [ "id", "status", "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单id,数组",
+          "minimum" : 1,
+          "maximum" : 2147483647
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "订单状态:draft 草稿,accept 待接单,deliver 待发货,receipt 待收货,examining 接单审核中,reject 接单驳回，payment 待付款，paid 收款待确认，over 交易完成，cancel 已取消"
+        }
+      },
+      "description" : "销售订单审核参数对象"
+    },
+    "SaleOrderItemRequestDTO" : {
+      "type" : "object",
+      "required" : [ "tenantId" ],
+      "properties" : {
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户id"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用id"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "明细编号"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "unitId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计价单位"
+        },
+        "skuId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品ID"
+        },
+        "skuName" : {
+          "type" : "string",
+          "description" : "商品名称"
+        },
+        "skuCode" : {
+          "type" : "string",
+          "description" : "商品编号"
+        },
+        "skuFormat" : {
+          "type" : "string",
+          "description" : "商品规格"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品数量"
+        },
+        "taxRate" : {
+          "type" : "number",
+          "description" : "税率"
+        },
+        "price" : {
+          "type" : "number",
+          "description" : "单价"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "金额小计（含税）"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "优惠后金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠分摊金额"
+        },
+        "costPrice" : {
+          "type" : "number",
+          "description" : "成本价（单价)"
+        },
+        "pricePolicyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "价格政策标识"
+        }
+      },
+      "description" : "SaleOrderItemRequestDTO"
+    },
+    "SaleOrderItemResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "APP标识"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态，1：删除状态"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "明细编号"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "unitId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计价单位"
+        },
+        "skuId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品ID"
+        },
+        "skuName" : {
+          "type" : "string",
+          "description" : "商品名称"
+        },
+        "skuCode" : {
+          "type" : "string",
+          "description" : "商品编号"
+        },
+        "skuFormat" : {
+          "type" : "string",
+          "description" : "商品规格"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "商品数量"
+        },
+        "taxRate" : {
+          "type" : "number",
+          "description" : "税率"
+        },
+        "price" : {
+          "type" : "number",
+          "description" : "单价"
+        },
+        "totalAmount" : {
+          "type" : "number",
+          "description" : "金额小计（含税）"
+        },
+        "accrueAmount" : {
+          "type" : "number",
+          "description" : "优惠后金额"
+        },
+        "discountAmount" : {
+          "type" : "number",
+          "description" : "优惠分摊金额"
+        },
+        "costPrice" : {
+          "type" : "number",
+          "description" : "成本价（单价)"
+        },
+        "pricePolicyId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "价格政策标识"
+        }
+      },
+      "description" : "SaleOrderItemResponseDTO"
+    },
+    "SaleOutTaskRequestDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "订单确认状态 0:已确认,1已作废"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计划出库总数量"
+        },
+        "isHedge" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "是否红冲。1：是。0：否。"
+        },
+        "hedgeOrder" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "红冲的原订单标识"
+        }
+      },
+      "description" : "SaleOutTaskRequestDTO"
+    },
+    "SaleOutTaskResponseDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "tenantId" : {
+          "type" : "string",
+          "description" : "租户ID"
+        },
+        "appId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "应用ID"
+        },
+        "version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "版本号"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "备注"
+        },
+        "deleted" : {
+          "type" : "boolean",
+          "description" : "0：未逻辑删除状态。1:删除"
+        },
+        "createdTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "updatedTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "更新时间"
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "出库单编号"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "单据类型:out 销售出库单"
+        },
+        "saleOrderId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "订单ID"
+        },
+        "saleOrderCode" : {
+          "type" : "string",
+          "description" : "订单编号"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "订单确认状态 0:已确认,1已作废"
+        },
+        "ticketDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "单据日期"
+        },
+        "skuQuantity" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "计划出库总数量"
+        },
+        "taskType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "出库单类型,1原单,2蓝单,3红单"
+        },
+        "hedgeOrder" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "红冲的原订单标识"
+        },
+        "orderDeliveryId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "发货物流id"
+        }
+      },
+      "description" : "SaleOutTaskResponseDTO"
+    }
+  }
+}

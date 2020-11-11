@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleDeliveryPlanInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleDeliveryPlanInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="code" column="code"/>
+
+        <result property="status" column="status"/>
+
+        <result property="reason" column="reason"/>
+
+        <result property="saleDeliveryPlanMaid" column="sale_delivery_plan_maid"/>
+
+        <result property="saleDeliveryPlanCode" column="sale_delivery_plan_code"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            created_by,
+            updated_time,
+            updated_by,
+            code,
+            status,
+            reason,
+            sale_delivery_plan_maid,
+            sale_delivery_plan_code    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_delivery_plan_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_delivery_plan_info
+
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and version = #{version}
+        </if>
+        <if test="remark != null">
+            and remark = #{remark}
+        </if>
+        <if test="createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test="createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test="updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test="updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test="code != null">
+            and code = #{code}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="reason != null">
+            and reason = #{reason}
+        </if>
+
+        <if test="saleDeliveryPlanMaid != null">
+            and sale_delivery_plan_maid = #{saleDeliveryPlanMaid}
+        </if>
+        <if test="saleDeliveryPlanCode != null">
+            and sale_delivery_plan_code = #{saleDeliveryPlanCode}
+        </if>
+        <if test="pickGoodsTimeZt!=null and createdStartTime!=null">
+            AND id in
+            (SELECT
+            sdpItem.sale_delivery_plan_id
+            FROM
+            sale_delivery_plan_item sdpItem
+            inner JOIN sale_pick_goods_info spgInfo
+            ON sdpItem.pick_goods_info_id = spgInfo.id
+            AND spgInfo.pick_goods_time_zt=#{pickGoodsTimeZt}
+            AND spgInfo.created_time=#{createdStartTime}
+            )
+        </if>
+        <if test="pickGoodsCode !=null">
+            AND id in(SELECT
+            sdpItem.sale_delivery_plan_id
+            FROM
+            sale_delivery_plan_item sdpItem
+            inner JOIN sale_pick_goods_info spgInfo
+            ON sdpItem.pick_goods_info_id = spgInfo.id
+            AND spgInfo.pick_goods_code=#{pickGoodsCode}
+            )
+        </if>
+        <if test="ztWq!=null">
+            AND id IN(SELECT
+            sdpItem.sale_delivery_plan_id
+            FROM
+            sale_delivery_plan_item sdpItem
+            where zt_wq=#{ztWq})
+        </if>
+        <if test="skuName !=null">
+            AND id IN(SELECT
+            sdpItem.sale_delivery_plan_id
+            FROM
+            sale_delivery_plan_item sdpItem
+            where sku_name=#{sku_name}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_delivery_plan_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdBy != null">
+                        when id = #{item.id} then #{item.createdBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedBy != null">
+                        when id = #{item.id} then #{item.updatedBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.code != null">
+                        when id = #{item.id} then #{item.code}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.status != null">
+                        when id = #{item.id} then #{item.status}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="reason = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.reason != null">
+                        when id = #{item.id} then #{item.reason}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_maid = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleDeliveryPlanMaid != null">
+                        when id = #{item.id} then #{item.saleDeliveryPlanMaid}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleDeliveryPlanCode != null">
+                        when id = #{item.id} then #{item.saleDeliveryPlanCode}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_delivery_plan_info
+        ( tenant_id, app_id, version, remark, is_deleted, created_time, created_by, updated_time, updated_by, code,
+        status, reason, sale_delivery_plan_maid, sale_delivery_plan_code )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.remark}, #{item.isDeleted}, #{item.createdTime},
+            #{item.createdBy}, #{item.updatedTime}, #{item.updatedBy}, #{item.code}, #{item.status}, #{item.reason},
+            #{item.saleDeliveryPlanMaid}, #{item.saleDeliveryPlanCode})
+        </foreach>
+    </insert>
+</mapper>

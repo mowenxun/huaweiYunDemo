@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleCloudInterfaceRecordMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleCloudInterfaceRecordDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="interfaceName" column="interface_name"/>
+
+        <result property="interfaceUrl" column="interface_url"/>
+
+        <result property="input" column="input"/>
+
+        <result property="output" column="output"/>
+
+        <result property="type" column="type"/>
+
+        <result property="remark" column="remark"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            is_deleted,
+            created_time,
+            updated_time,
+            interface_name,
+            interface_url,
+            input,
+            output,
+            type,
+            remark    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_cloud_interface_record SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_cloud_interface_record
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "isDeleted != null">
+            and is_deleted = #{isDeleted}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "interfaceName != null">
+            and interface_name = #{interfaceName}
+        </if>
+        <if test = "interfaceUrl != null">
+            and interface_url = #{interfaceUrl}
+        </if>
+        <if test = "input != null">
+            and input = #{input}
+        </if>
+        <if test = "output != null">
+            and output = #{output}
+        </if>
+        <if test = "type != null">
+            and type = #{type}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_cloud_interface_record
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="interface_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.interfaceName != null">
+                            when id = #{item.id} then #{item.interfaceName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="interface_url = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.interfaceUrl != null">
+                            when id = #{item.id} then #{item.interfaceUrl}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="input = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.input != null">
+                            when id = #{item.id} then #{item.input}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="output = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.output != null">
+                            when id = #{item.id} then #{item.output}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.type != null">
+                            when id = #{item.id} then #{item.type}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_cloud_interface_record
+        (           tenant_id,           app_id,           version,           is_deleted,           created_time,           updated_time,           interface_name,           interface_url,           input,           output,           type,           remark        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.isDeleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.interfaceName},                 #{item.interfaceUrl},                 #{item.input},                 #{item.output},                 #{item.type},                 #{item.remark})
+        </foreach>
+    </insert>
+</mapper>

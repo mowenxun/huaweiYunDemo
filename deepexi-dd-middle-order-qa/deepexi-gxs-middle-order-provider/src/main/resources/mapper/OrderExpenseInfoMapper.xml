@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderExpenseInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderExpenseInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="amount" column="amount"/>
+
+        <result property="policyType" column="policy_type"/>
+
+        <result property="policyId" column="policy_id"/>
+
+        <result property="policyName" column="policy_name"/>
+
+        <result property="canReturn" column="can_return"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            sale_order_id,
+            amount,
+            policy_type,
+            policy_id,
+            policy_name,
+            can_return    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_expense_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_expense_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test = "amount != null">
+            and amount = #{amount}
+        </if>
+        <if test = "policyType != null">
+            and policy_type = #{policyType}
+        </if>
+        <if test = "policyId != null">
+            and policy_id = #{policyId}
+        </if>
+        <if test = "policyName != null">
+            and policy_name = #{policyName}
+        </if>
+        <if test = "canReturn != null">
+            and can_return = #{canReturn}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_expense_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderId != null">
+                            when id = #{item.id} then #{item.saleOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.amount != null">
+                            when id = #{item.id} then #{item.amount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="policy_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.policyType != null">
+                            when id = #{item.id} then #{item.policyType}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="policy_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.policyId != null">
+                            when id = #{item.id} then #{item.policyId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="policy_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.policyName != null">
+                            when id = #{item.id} then #{item.policyName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="can_return = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.canReturn != null">
+                            when id = #{item.id} then #{item.canReturn}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_expense_info
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           sale_order_id,           amount,           policy_type,           policy_id,           policy_name,           can_return        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.deleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.saleOrderId},                 #{item.amount},                 #{item.policyType},                 #{item.policyId},                 #{item.policyName},                 #{item.canReturn})
+        </foreach>
+    </insert>
+</mapper>

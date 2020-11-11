@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderConsigneeInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderConsigneeInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="saleOrderCode" column="sale_order_code"/>
+
+        <result property="provinceCode" column="province_code"/>
+
+        <result property="provinceName" column="province_name"/>
+
+        <result property="cityCode" column="city_code"/>
+
+        <result property="cityName" column="city_name"/>
+
+        <result property="areaCode" column="area_code"/>
+
+        <result property="areaName" column="area_name"/>
+
+        <result property="streetCode" column="street_code"/>
+
+        <result property="streetName" column="street_name"/>
+
+        <result property="consignee" column="consignee"/>
+
+        <result property="mobile" column="mobile"/>
+
+        <result property="detailedAddress" column="detailed_address"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            sale_order_id,
+            sale_order_code,
+            province_code,
+            province_name,
+            city_code,
+            city_name,
+            area_code,
+            area_name,
+            street_code,
+            street_name,
+            consignee,
+            mobile    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_consignee_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_consignee_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test = "saleOrderCode != null">
+            and sale_order_code = #{saleOrderCode}
+        </if>
+        <if test = "provinceCode != null">
+            and province_code = #{provinceCode}
+        </if>
+        <if test = "provinceName != null">
+            and province_name = #{provinceName}
+        </if>
+        <if test = "cityCode != null">
+            and city_code = #{cityCode}
+        </if>
+        <if test = "cityName != null">
+            and city_name = #{cityName}
+        </if>
+        <if test = "areaCode != null">
+            and area_code = #{areaCode}
+        </if>
+        <if test = "areaName != null">
+            and area_name = #{areaName}
+        </if>
+        <if test = "streetCode != null">
+            and street_code = #{streetCode}
+        </if>
+        <if test = "streetName != null">
+            and street_name = #{streetName}
+        </if>
+        <if test = "consignee != null">
+            and consignee = #{consignee}
+        </if>
+        <if test = "mobile != null">
+            and mobile = #{mobile}
+        </if>
+        ORDER BY created_time DESC
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_consignee_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderId != null">
+                            when id = #{item.id} then #{item.saleOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderCode != null">
+                            when id = #{item.id} then #{item.saleOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="province_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.provinceCode != null">
+                            when id = #{item.id} then #{item.provinceCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="province_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.provinceName != null">
+                            when id = #{item.id} then #{item.provinceName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="city_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.cityCode != null">
+                            when id = #{item.id} then #{item.cityCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="city_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.cityName != null">
+                            when id = #{item.id} then #{item.cityName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="area_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.areaCode != null">
+                            when id = #{item.id} then #{item.areaCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="area_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.areaName != null">
+                            when id = #{item.id} then #{item.areaName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="street_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.streetCode != null">
+                            when id = #{item.id} then #{item.streetCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="street_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.streetName != null">
+                            when id = #{item.id} then #{item.streetName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="consignee = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.consignee != null">
+                            when id = #{item.id} then #{item.consignee}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="mobile = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.mobile != null">
+                            when id = #{item.id} then #{item.mobile}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_consignee_info
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           sale_order_id,           sale_order_code,           province_code,           province_name,           city_code,           city_name,           area_code,           area_name,           street_code,           street_name,           consignee,           mobile        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.deleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.saleOrderId},                 #{item.saleOrderCode},                 #{item.provinceCode},                 #{item.provinceName},                 #{item.cityCode},                 #{item.cityName},                 #{item.areaCode},                 #{item.areaName},                 #{item.streetCode},                 #{item.streetName},                 #{item.consignee},                 #{item.mobile})
+        </foreach>
+    </insert>
+</mapper>

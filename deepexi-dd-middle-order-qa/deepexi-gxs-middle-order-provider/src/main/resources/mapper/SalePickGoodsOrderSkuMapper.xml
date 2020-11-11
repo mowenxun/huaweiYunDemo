@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SalePickGoodsOrderSkuMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SalePickGoodsOrderSkuDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="pickGoodsInfoId" column="pick_goods_info_id"/>
+
+        <result property="pickGoodsOrderId" column="pick_goods_order_id"/>
+
+        <result property="majorPicture" column="major_picture"/>
+
+        <result property="saleOrderItemId" column="sale_order_item_id"/>
+
+        <result property="skuId" column="sku_id"/>
+
+        <result property="skuName" column="sku_name"/>
+
+        <result property="skuCode" column="sku_code"/>
+
+        <result property="skuFormat" column="sku_format"/>
+
+        <result property="price" column="price"/>
+
+        <result property="purchaseQuantity" column="purchase_quantity"/>
+
+        <result property="waitSendNum" column="wait_send_num"/>
+
+        <result property="pickNum" column="pick_num"/>
+
+        <result property="lockNum" column="lock_num"/>
+
+        <result property="unitId" column="unit_id"/>
+
+        <result property="unitName" column="unit_name"/>
+
+        <result property="skuItemSubtotal" column="sku_item_subtotal"/>
+
+        <result property="warehouseId" column="warehouse_id"/>
+
+        <result property="warehouse" column="warehouse"/>
+
+        <result property="deliveryQuantity" column="delivery_quantity"/>
+
+        <result property="ifEager" column="if_eager"/>
+
+        <result property="rowCode" column="row_code"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            pick_goods_info_id,
+            pick_goods_order_id,
+            major_picture,
+            sale_order_item_id,
+            sku_id,
+            sku_name,
+            sku_code,
+            sku_format,
+            price,
+            purchase_quantity,
+            wait_send_num,
+            pick_num,
+            lock_num,
+            unit_id,
+            unit_name,
+            sku_item_subtotal,
+            warehouse_id,
+            warehouse,
+            delivery_quantity,
+            if_eager,
+            row_code    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_pick_goods_order_sku SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        spgos.*
+        FROM sale_pick_goods_order_sku spgos
+        INNER JOIN sale_pick_goods_info spgi
+        on spgos.pick_goods_info_id=spgi.id
+        <if test="customerName !=null">
+            AND spgi.customer_name=#{customerName}
+        </if>
+        <if test="status !=null">
+            AND spgi.status=#{status}
+        </if>
+        <if test="pickGoodsCode !=null">
+            AND spgi.pick_goods_code like concat('%',#{pickGoodsCode},'%')
+        </if>
+        <if test="pickGoodsWayZt !=null">
+            AND spgi.pick_goods_way_zt=#{pickGoodsWayZt}
+        </if>
+        <if test="contactWayZt !=null">
+            AND spgi.contact_way like concat('%',#{contactWayZt},'%')
+        </if>
+        <if test="receiveAddress !=null">
+            AND spgi.receive_address like concat('%',#{receiveAddress},'%')
+        </if>
+        <if test="consignee !=null">
+            AND spgi.receive_goods_man like concat('%',#{consignee},'%')
+        </if>
+        <if test="createdStartTime !=null and createdStartTime !='' ">
+            <![CDATA[ and spgi.created_time  >=  #{createdStartTime}  ]]>
+        </if>
+        <if test="requiredTime !=null and requiredTime!='' ">
+            <![CDATA[ and spgi.required_time  >=  #{requiredTime}  ]]>
+        </if>
+        WHERE spgos.is_deleted = 0
+        <if test="id != null">
+            and spgos.id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and spgos.tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and spgos.app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and spgos.version = #{version}
+        </if>
+        <if test="remark != null">
+            and spgos.remark = #{remark}
+        </if>
+        <if test="createdTime != null">
+            and spgos.created_time = #{createdTime}
+        </if>
+        <if test="updatedTime != null">
+            and spgos.updated_time = #{updatedTime}
+        </if>
+        <if test="pickGoodsInfoId != null">
+            and spgos.pick_goods_info_id = #{pickGoodsInfoId}
+        </if>
+        <if test="pickGoodsOrderId != null">
+            and spgos.pick_goods_order_id = #{pickGoodsOrderId}
+        </if>
+        <if test="pickGoodsInfoIdList != null and pickGoodsInfoIdList.size()>0">
+            and spgos.pick_goods_info_id IN
+            <foreach item="item" index="index" collection="pickGoodsInfoIdList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="majorPicture != null">
+            and spgos.major_picture = #{majorPicture}
+        </if>
+        <if test="saleOrderItemId != null">
+            and spgos.sale_order_item_id = #{saleOrderItemId}
+        </if>
+        <if test="saleOrderItemIdList != null and saleOrderItemIdList.size()>0">
+            and spgos.sale_order_item_id IN
+            <foreach item="item" index="index" collection="saleOrderItemIdList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="skuId != null">
+            and spgos.sku_id = #{skuId}
+        </if>
+        <if test="skuName != null">
+            and spgos.sku_name like concat('%', #{skuName},'%')
+        </if>
+        <if test="skuCode != null">
+            and spgos.sku_code = #{skuCode}
+        </if>
+        <if test="skuFormat != null">
+            and spgos.sku_format = #{skuFormat}
+        </if>
+        <if test="price != null">
+            and spgos.price = #{price}
+        </if>
+        <if test="purchaseQuantity != null">
+            and spgos.purchase_quantity = #{purchaseQuantity}
+        </if>
+        <if test="waitSendNum != null">
+            and spgos.wait_send_num = #{waitSendNum}
+        </if>
+        <if test="pickNum != null">
+            and spgos.pick_num = #{pickNum}
+        </if>
+        <if test="lockNum != null">
+            and spgos.lock_num = #{lockNum}
+        </if>
+        <if test="unitId != null">
+            and spgos.unit_id = #{unitId}
+        </if>
+        <if test="unitName != null">
+            and spgos.unit_name = #{unitName}
+        </if>
+        <if test="skuItemSubtotal != null">
+            and spgos.sku_item_subtotal = #{skuItemSubtotal}
+        </if>
+        <if test="ifEager != null">
+            and spgos.if_eager = #{ifEager}
+        </if>
+        <if test="startTime !=null ">
+            <![CDATA[ AND spgos.created_time  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime !=null ">
+            <![CDATA[ AND spgos.created_time <=  #{endTime}  ]]>
+        </if>
+        <if test="ascriptionOrgId !=null">
+            and spgi.ascription_org_id=#{ascriptionOrgId}
+        </if>
+        <if test="warehouseId !=null">
+            and spgos.warehouse_id=#{warehouseId}
+        </if>
+        order by spgi.required_time DESC
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_pick_goods_order_sku
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_info_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickGoodsInfoId != null">
+                        when id = #{item.id} then #{item.pickGoodsInfoId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_goods_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickGoodsOrderId != null">
+                        when id = #{item.id} then #{item.pickGoodsOrderId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="major_picture = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.majorPicture != null">
+                        when id = #{item.id} then #{item.majorPicture}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_item_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.saleOrderItemId != null">
+                        when id = #{item.id} then #{item.saleOrderItemId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuId != null">
+                        when id = #{item.id} then #{item.skuId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuName != null">
+                        when id = #{item.id} then #{item.skuName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuCode != null">
+                        when id = #{item.id} then #{item.skuCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_format = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuFormat != null">
+                        when id = #{item.id} then #{item.skuFormat}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.price != null">
+                        when id = #{item.id} then #{item.price}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="purchase_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.purchaseQuantity != null">
+                        when id = #{item.id} then #{item.purchaseQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="wait_send_num = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.waitSendNum != null">
+                        when id = #{item.id} then #{item.waitSendNum}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pick_num = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.pickNum != null">
+                        when id = #{item.id} then #{item.pickNum}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="lock_num = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.lockNum != null">
+                        when id = #{item.id} then #{item.lockNum}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="unit_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.unitId != null">
+                        when id = #{item.id} then #{item.unitId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="unit_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.unitName != null">
+                        when id = #{item.id} then #{item.unitName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_item_subtotal = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuItemSubtotal != null">
+                        when id = #{item.id} then #{item.skuItemSubtotal}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="if_eager = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.ifEager != null">
+                        when id = #{item.id} then #{item.ifEager}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_pick_goods_order_sku
+        ( tenant_id, app_id, version, remark, is_deleted, created_time, updated_time, pick_goods_info_id,
+        pick_goods_order_id, major_picture, sale_order_item_id, sku_id, sku_name, sku_code, sku_format, price,
+        purchase_quantity,
+        wait_send_num, pick_num, lock_num, unit_id, unit_name, sku_item_subtotal, if_eager )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.remark}, #{item.deleted}, #{item.createdTime},
+            #{item.updatedTime}, #{item.pickGoodsInfoId}, #{item.pickGoodsOrderId}, #{item.majorPicture},
+            #{item.saleOrderItemId}, #{item.skuId},
+            #{item.skuName}, #{item.skuCode}, #{item.skuFormat}, #{item.price}, #{item.purchaseQuantity},
+            #{item.waitSendNum}, #{item.pickNum}, #{item.lockNum}, #{item.unitId}, #{item.unitName},
+            #{item.skuItemSubtotal},
+            #{item.ifEager})
+        </foreach>
+    </insert>
+    <select id="selectByRowCode" parameterType="java.lang.String"
+            resultType="com.deepexi.dd.middle.order.domain.SalePickGoodsOrderSkuDO">
+        select
+        <include refid="Base_Column_List"/>
+        from sale_pick_goods_order_sku where row_code=#{rowCode}
+    </select>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.PayVoucherMapper">
+  <resultMap id="BaseResultMap" type="com.deepexi.dd.middle.order.domain.PayVoucherDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="app_id" jdbcType="BIGINT" property="appId" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="pay_bank" jdbcType="VARCHAR" property="payBank" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="pay_money" jdbcType="DECIMAL" property="payMoney" />
+    <result column="pay_voucher_picture" jdbcType="VARCHAR" property="payVoucherPicture" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tenant_id, app_id, version, remark, is_deleted, created_by, created_time, updated_time, 
+    updated_by, order_id, order_code, bank_name, branch_name, account_name, account_no, 
+    total_amount, pay_bank, pay_time, pay_money, pay_voucher_picture
+  </sql>
+
+
+  <select id="findByQuery" resultType="com.deepexi.dd.middle.order.domain.PayVoucherDO">
+    select
+    <include refid="Base_Column_List"/>
+    from pay_voucher where is_deleted = 0
+    <if test="tenantId != null">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+    <if test="appId != null">
+      and app_id = #{appId,jdbcType=BIGINT}
+    </if>
+    <if test="createdBy != null">
+      and created_by = #{createdBy,jdbcType=VARCHAR}
+    </if>
+    <if test="updatedBy != null">
+      and updated_by = #{updatedBy,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId != null">
+      and  order_id = #{orderId,jdbcType=BIGINT}
+    </if>
+    <if test="orderCode != null">
+      and  order_code = #{orderCode,jdbcType=VARCHAR}
+    </if>
+    <if test="bankName != null">
+      and  bank_name = #{bankName,jdbcType=VARCHAR}
+    </if>
+    <if test="branchName != null">
+      and  branch_name = #{branchName,jdbcType=VARCHAR}
+    </if>
+    <if test="accountName != null">
+      and account_name = #{accountName,jdbcType=VARCHAR}
+    </if>
+    <if test="accountNo != null">
+      and account_no = #{accountNo,jdbcType=VARCHAR}
+    </if>
+    <if test="totalAmount != null">
+      and total_amount = #{totalAmount,jdbcType=DECIMAL}
+    </if>
+    <if test="payBank != null">
+      and  pay_bank = #{payBank,jdbcType=VARCHAR}
+    </if>
+    <if test="payTime != null">
+      and  pay_time = #{payTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="payMoney != null">
+      and  pay_money = #{payMoney,jdbcType=DECIMAL}
+    </if>
+    <if test="payVoucherPicture != null">
+      and  pay_voucher_picture = #{payVoucherPicture,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

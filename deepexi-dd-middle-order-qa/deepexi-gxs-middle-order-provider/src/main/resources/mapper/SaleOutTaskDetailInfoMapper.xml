@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SaleOutTaskDetailInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SaleOutTaskDetailInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="salePickGoodsId" column="sale_pick_goods_id"/>
+
+        <result property="salePickGoodsCode" column="sale_pick_goods_code"/>
+
+        <result property="saleDeliveryPlanId" column="sale_delivery_plan_id"/>
+
+        <result property="saleDeliveryPlanCode" column="sale_delivery_plan_code"/>
+
+        <result property="saleOutTaskId" column="sale_out_task_id"/>
+
+        <result property="saleOrderItemId" column="sale_order_item_id"/>
+
+        <result property="skuShipmentQuantity" column="sku_shipment_quantity"/>
+
+        <result property="skuPickQuantity" column="sku_pick_quantity"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            sale_order_id,
+            sale_pick_goods_id,
+            sale_pick_goods_code,
+            sale_delivery_plan_id,
+            sale_delivery_plan_code,
+            sale_out_task_id,
+            sale_order_item_id,
+            sku_shipment_quantity,
+            sku_pick_quantity    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE sale_out_task_detail_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sale_out_task_detail_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test = "salePickGoodsId != null">
+            and sale_pick_goods_id = #{salePickGoodsId}
+        </if>
+        <if test = "salePickGoodsCode != null">
+            and sale_pick_goods_code = #{salePickGoodsCode}
+        </if>
+        <if test = "saleDeliveryPlanId != null">
+            and sale_delivery_plan_id = #{saleDeliveryPlanId}
+        </if>
+        <if test = "saleDeliveryPlanCode != null">
+            and sale_delivery_plan_code = #{saleDeliveryPlanCode}
+        </if>
+        <if test = "saleOutTaskId != null">
+            and sale_out_task_id = #{saleOutTaskId}
+        </if>
+        <if test = "saleOrderItemId != null">
+            and sale_order_item_id = #{saleOrderItemId}
+        </if>
+        <if test = "skuShipmentQuantity != null">
+            and sku_shipment_quantity = #{skuShipmentQuantity}
+        </if>
+        <if test = "skuPickQuantity != null">
+            and sku_pick_quantity = #{skuPickQuantity}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sale_out_task_detail_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderId != null">
+                            when id = #{item.id} then #{item.saleOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_pick_goods_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.salePickGoodsId != null">
+                            when id = #{item.id} then #{item.salePickGoodsId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_pick_goods_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.salePickGoodsCode != null">
+                            when id = #{item.id} then #{item.salePickGoodsCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleDeliveryPlanId != null">
+                            when id = #{item.id} then #{item.saleDeliveryPlanId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_delivery_plan_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleDeliveryPlanCode != null">
+                            when id = #{item.id} then #{item.saleDeliveryPlanCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_out_task_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOutTaskId != null">
+                            when id = #{item.id} then #{item.saleOutTaskId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_item_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderItemId != null">
+                            when id = #{item.id} then #{item.saleOrderItemId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_shipment_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.skuShipmentQuantity != null">
+                            when id = #{item.id} then #{item.skuShipmentQuantity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_pick_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.skuPickQuantity != null">
+                            when id = #{item.id} then #{item.skuPickQuantity}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO sale_out_task_detail_info
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           sale_order_id,           sale_pick_goods_id,           sale_pick_goods_code,           sale_delivery_plan_id,           sale_delivery_plan_code,           sale_out_task_id,           sale_order_item_id,           sku_shipment_quantity,           sku_pick_quantity        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.saleOrderId},                 #{item.salePickGoodsId},                 #{item.salePickGoodsCode},                 #{item.saleDeliveryPlanId},                 #{item.saleDeliveryPlanCode},                 #{item.saleOutTaskId},                 #{item.saleOrderItemId},                 #{item.skuShipmentQuantity},                 #{item.skuPickQuantity})
+        </foreach>
+    </insert>
+</mapper>

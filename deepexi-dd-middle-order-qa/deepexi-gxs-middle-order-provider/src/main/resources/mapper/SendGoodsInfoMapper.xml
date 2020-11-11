@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.SendGoodsInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.SendGoodsInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="orderCode" column="order_code"/>
+
+        <result property="orderId" column="order_id"/>
+
+        <result property="sendTime" column="send_time"/>
+
+        <result property="sendType" column="send_type"/>
+
+        <result property="receiveDistributionCode" column="receive_distribution_code"/>
+
+        <result property="receiveDistributionId" column="receive_distribution_id"/>
+
+        <result property="receiveDistributionName" column="receive_distribution_name"/>
+
+        <result property="receiveAddress" column="receive_address"/>
+
+        <result property="receiveMobile" column="receive_mobile"/>
+
+        <result property="logisticsCompany" column="logistics_company"/>
+
+        <result property="logisticsCode" column="logistics_code"/>
+
+        <result property="licensePlateNumber" column="license_plate_number"/>
+
+        <result property="driverName" column="driver_name"/>
+
+        <result property="driverPhone" column="driver_phone"/>
+
+        <result property="department" column="department"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_by,
+            created_time,
+            updated_time,
+            updated_by,
+            order_code,
+            order_id,
+            send_time,
+            send_type,
+            receive_distribution_code,
+            receive_distribution_id,
+            receive_distribution_name,
+            receive_address,
+            receive_mobile,
+            logistics_company,
+            logistics_code,
+            license_plate_number,
+            driver_name,
+            driver_phone,
+            department    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE send_goods_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM send_goods_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+       <!-- <if test = "isDeleted != null">
+            and is_deleted = #{isDeleted}
+        </if>-->
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test = "orderCode != null">
+            and order_code = #{orderCode}
+        </if>
+        <if test = "orderId != null">
+            and order_id = #{orderId}
+        </if>
+        <if test = "sendTime != null">
+            and send_time = #{sendTime}
+        </if>
+        <if test = "sendType != null">
+            and send_type = #{sendType}
+        </if>
+        <if test = "receiveDistributionCode != null">
+            and receive_distribution_code = #{receiveDistributionCode}
+        </if>
+        <if test = "receiveDistributionId != null">
+            and receive_distribution_id = #{receiveDistributionId}
+        </if>
+        <if test = "receiveDistributionName != null">
+            and receive_distribution_name = #{receiveDistributionName}
+        </if>
+        <if test = "receiveAddress != null">
+            and receive_address = #{receiveAddress}
+        </if>
+        <if test = "receiveMobile != null">
+            and receive_mobile = #{receiveMobile}
+        </if>
+        <if test = "logisticsCompany != null">
+            and logistics_company = #{logisticsCompany}
+        </if>
+        <if test = "logisticsCode != null">
+            and logistics_code = #{logisticsCode}
+        </if>
+        <if test = "licensePlateNumber != null">
+            and license_plate_number = #{licensePlateNumber}
+        </if>
+        <if test = "driverName != null">
+            and driver_name = #{driverName}
+        </if>
+        <if test = "driverPhone != null">
+            and driver_phone = #{driverPhone}
+        </if>
+        <if test = "department != null">
+            and department = #{department}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE send_goods_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedBy != null">
+                            when id = #{item.id} then #{item.updatedBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.orderCode != null">
+                            when id = #{item.id} then #{item.orderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.orderId != null">
+                            when id = #{item.id} then #{item.orderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="send_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.sendTime != null">
+                            when id = #{item.id} then #{item.sendTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="send_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.sendType != null">
+                            when id = #{item.id} then #{item.sendType}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_distribution_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveDistributionCode != null">
+                            when id = #{item.id} then #{item.receiveDistributionCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_distribution_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveDistributionId != null">
+                            when id = #{item.id} then #{item.receiveDistributionId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_distribution_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveDistributionName != null">
+                            when id = #{item.id} then #{item.receiveDistributionName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_address = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveAddress != null">
+                            when id = #{item.id} then #{item.receiveAddress}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="receive_mobile = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.receiveMobile != null">
+                            when id = #{item.id} then #{item.receiveMobile}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="logistics_company = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.logisticsCompany != null">
+                            when id = #{item.id} then #{item.logisticsCompany}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="logistics_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.logisticsCode != null">
+                            when id = #{item.id} then #{item.logisticsCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="license_plate_number = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.licensePlateNumber != null">
+                            when id = #{item.id} then #{item.licensePlateNumber}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="driver_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.driverName != null">
+                            when id = #{item.id} then #{item.driverName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="driver_phone = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.driverPhone != null">
+                            when id = #{item.id} then #{item.driverPhone}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="department = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.department != null">
+                            when id = #{item.id} then #{item.department}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO send_goods_info
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_by,           created_time,           updated_time,           updated_by,           order_code,           order_id,           send_time,           send_type,           receive_distribution_code,           receive_distribution_id,           receive_distribution_name,           receive_address,           receive_mobile,           logistics_company,           logistics_code,           license_plate_number,           driver_name,           driver_phone,           department        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdBy},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.updatedBy},                 #{item.orderCode},                 #{item.orderId},                 #{item.sendTime},                 #{item.sendType},                 #{item.receiveDistributionCode},                 #{item.receiveDistributionId},                 #{item.receiveDistributionName},                 #{item.receiveAddress},                 #{item.receiveMobile},                 #{item.logisticsCompany},                 #{item.logisticsCode},                 #{item.licensePlateNumber},                 #{item.driverName},                 #{item.driverPhone},                 #{item.department})
+        </foreach>
+    </insert>
+</mapper>

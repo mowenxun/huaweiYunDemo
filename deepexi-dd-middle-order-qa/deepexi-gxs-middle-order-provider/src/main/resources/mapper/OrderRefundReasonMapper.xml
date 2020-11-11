@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderRefundReasonMapper">
+
+    <resultMap id="OrderRefundReasonFind" type="com.deepexi.dd.middle.order.domain.dto.OrderRefundReasonFindDTO">
+        <result property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="refundStatus" column="refund_status"/>
+        <result property="refundAmount" column="refund_amount"/>
+    </resultMap>
+
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderRefundReasonDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="isolationId" column="isolation_id"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="refundCode" column="refund_code"/>
+
+        <result property="applyAmount" column="apply_amount"/>
+
+        <result property="orderType" column="order_type"/>
+
+        <result property="orderId" column="order_id"/>
+
+        <result property="orderCode" column="order_code"/>
+
+        <result property="refundReason" column="refund_reason"/>
+
+        <result property="applyDate" column="apply_date"/>
+
+        <result property="refundDate" column="refund_date"/>
+
+        <result property="refundAmount" column="refund_amount"/>
+
+        <result property="payCode" column="pay_code"/>
+
+        <result property="refundType" column="refund_type"/>
+
+        <result property="customerId" column="customer_id"/>
+
+        <result property="customerName" column="customer_name"/>
+
+        <result property="refundStatus" column="refund_status"/>
+
+        <result property="payAmount" column="pay_amount"/>
+
+        <result property="voucher" column="voucher"/>
+
+        <result property="voucherName" column="voucher_name"/>
+
+        <result property="ticketDate" column="ticket_date"/>
+
+        <result property="auditReason" column="audit_reason"/>
+
+        <result property="orgId" column="org_id"/>
+
+        <result property="buyerId" column="buyer_id"/>
+
+        <result property="partnerId" column="partner_id"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            is_deleted,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by,
+            isolation_id,
+            remark,
+            refund_code,
+            apply_amount,
+            order_type,
+            order_id,
+            order_code,
+            refund_reason,
+            apply_date,
+            refund_date,
+            refund_amount,
+            pay_code,
+            refund_type,
+            customer_id,
+            customer_name,
+            refund_status,
+            pay_amount,
+            voucher,
+            voucher_name,
+            ticket_date,
+            audit_reason,
+            org_id,
+            buyer_id,
+            partner_id
+    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_refund_reason SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateStatus">
+        UPDATE order_refund_reason SET refund_status = #{refundStatus} , audit_reason = #{auditReason},refund_amount= #{refundAmount},refund_date= #{refundDate}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_refund_reason
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="orgId != null">
+            and org_id = #{orgId}
+        </if>
+        <if test="version != null">
+            and version = #{version}
+        </if>
+        <if test="auditReason != null and auditReason != ''">
+            and audit_reason = #{auditReason}
+        </if>
+        <if test="createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test="updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test="createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test="updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test="isolationId != null">
+            and isolation_id = #{isolationId}
+        </if>
+        <if test="remark != null">
+            and remark = #{remark}
+        </if>
+        <if test="orderId != null">
+            and order_id = #{orderId}
+        </if>
+        <if test="buyerId != null">
+            and buyer_id = #{buyerId}
+        </if>
+        <if test="partnerId != null">
+            and partner_id = #{partnerId}
+        </if>
+        <if test="refundCode != null and refundCode != ''">
+            and refund_code like concat('%',#{refundCode},'%')
+        </if>
+        <if test="applyAmount != null">
+            and apply_amount = #{applyAmount}
+        </if>
+        <if test="orderType != null">
+            and order_type like concat('%',#{orderType},'%')
+        </if>
+        <if test="orderCode != null and orderCode != ''">
+            and order_code like concat('%',#{orderCode},'%')
+        </if>
+        <if test="refundReason != null">
+            and refund_reason = #{refundReason}
+        </if>
+        <if test="applyDate != null">
+            and apply_date = #{applyDate}
+        </if>
+        <if test="refundDate != null">
+            and refund_date = #{refundDate}
+        </if>
+        <if test="applyDateFrom != null">
+            and apply_date >= #{applyDateFrom}
+        </if>
+        <if test="applyDateTo != null">
+            and apply_date &lt; DATE_FORMAT(DATE_ADD(#{applyDateTo},INTERVAL 1 DAY),'%Y-%m-%d')
+        </if>
+        <if test="refundAmount != null">
+            and refund_amount = #{refundAmount}
+        </if>
+        <if test="payCode != null">
+            and pay_code = #{payCode}
+        </if>
+        <if test="refundType != null">
+            and refund_type = #{refundType}
+        </if>
+        <if test="customerId != null">
+            and customer_id = #{customerId}
+        </if>
+        <if test="customerName != null">
+            and customer_name like concat('%',#{customerName},'%')
+        </if>
+        <if test="refundStatus != null">
+            and refund_status = #{refundStatus}
+        </if>
+        <if test="payAmount != null">
+            and pay_amount = #{payAmount}
+        </if>
+        <if test="voucher != null">
+            and voucher = #{voucher}
+        </if>
+        <if test="voucherName != null">
+            and voucher_name = #{voucherName}
+        </if>
+        <if test="ticketDate != null">
+            and ticket_date = #{ticketDate}
+        </if>
+        <if test="customerIdList != null and customerIdList.size > 0">
+            and customer_id in
+            <foreach collection="customerIdList" index="index" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        order by id desc
+    </select>
+    <select id="CheckCode" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_refund_reason
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="isolationId != null">
+            and isolation_id = #{isolationId}
+        </if>
+        <if test="refundCode != null">
+            and refund_code = #{refundCode}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_refund_reason
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdBy != null">
+                        when id = #{item.id} then #{item.createdBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedBy != null">
+                        when id = #{item.id} then #{item.updatedBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="isolation_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.isolationId != null">
+                        when id = #{item.id} then #{item.isolationId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundCode != null">
+                        when id = #{item.id} then #{item.refundCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="apply_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.applyAmount != null">
+                        when id = #{item.id} then #{item.applyAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.orderType != null">
+                        when id = #{item.id} then #{item.orderType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.orderCode != null">
+                        when id = #{item.id} then #{item.orderCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_reason = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundReason != null">
+                        when id = #{item.id} then #{item.refundReason}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="apply_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.applyDate != null">
+                        when id = #{item.id} then #{item.applyDate}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundDate != null">
+                        when id = #{item.id} then #{item.refundDate}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundAmount != null">
+                        when id = #{item.id} then #{item.refundAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.payCode != null">
+                        when id = #{item.id} then #{item.payCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundType != null">
+                        when id = #{item.id} then #{item.refundType}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="customer_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.customerId != null">
+                        when id = #{item.id} then #{item.customerId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="customer_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.customerName != null">
+                        when id = #{item.id} then #{item.customerName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundStatus != null">
+                        when id = #{item.id} then #{item.refundStatus}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="pay_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.payAmount != null">
+                        when id = #{item.id} then #{item.payAmount}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="voucher = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.voucher != null">
+                        when id = #{item.id} then #{item.voucher}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="voucher_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.voucherName != null">
+                        when id = #{item.id} then #{item.voucherName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="ticket_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.ticketDate != null">
+                        when id = #{item.id} then #{item.ticketDate}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_refund_reason
+        ( tenant_id, app_id, version, is_deleted, created_time, updated_time, created_by, updated_by, isolation_id,
+        remark, refund_code, apply_amount, order_type,order_id, order_code, refund_reason, apply_date, refund_date,
+        refund_amount, pay_code, refund_type, customer_id, customer_name, refund_status, pay_amount, voucher,
+        voucher_name, ticket_date )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.deleted}, #{item.createdTime},
+            #{item.updatedTime}, #{item.createdBy}, #{item.updatedBy}, #{item.isolationId}, #{item.remark},
+            #{item.refundCode}, #{item.applyAmount}, #{item.orderType},#{item.orderId}, #{item.orderCode}, #{item.refundReason},
+            #{item.applyDate}, #{item.refundDate}, #{item.refundAmount}, #{item.payCode}, #{item.refundType},
+            #{item.customerId}, #{item.customerName}, #{item.refundStatus}, #{item.payAmount}, #{item.voucher},
+            #{item.voucherName}, #{item.ticketDate})
+        </foreach>
+    </insert>
+
+    <select id="findOrderRefundReason" resultMap="OrderRefundReasonFind">
+        SELECT
+        id,order_id,order_code,refund_status,refund_amount
+        FROM order_refund_reason
+        WHERE is_deleted = 0 and refund_status!=33
+        <if test="orderCodeList != null and orderCodeList.size > 0">
+            and order_code in
+            <foreach collection="orderCodeList" index="index" item="orderCode" open="(" separator="," close=")">
+                #{orderCode}
+            </foreach>
+        </if>
+        order by order_code desc
+    </select>
+</mapper>

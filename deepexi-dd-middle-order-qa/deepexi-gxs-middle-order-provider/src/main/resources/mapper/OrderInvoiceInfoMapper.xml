@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderInvoiceInfoMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderInvoiceInfoDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="saleOrderId" column="sale_order_id"/>
+
+        <result property="saleOrderCode" column="sale_order_code"/>
+
+        <result property="invoiceTitle" column="invoice_title"/>
+
+        <result property="bankName" column="bank_name"/>
+
+        <result property="accountName" column="account_name"/>
+
+        <result property="accountNo" column="account_no"/>
+
+        <result property="taxNo" column="tax_no"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_time,
+            updated_time,
+            sale_order_id,
+            sale_order_code,
+            invoice_title,
+            bank_name,
+            account_name,
+            account_no,
+            tax_no    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_invoice_info SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_invoice_info
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "saleOrderId != null">
+            and sale_order_id = #{saleOrderId}
+        </if>
+        <if test = "saleOrderCode != null">
+            and sale_order_code = #{saleOrderCode}
+        </if>
+        <if test = "invoiceTitle != null">
+            and invoice_title = #{invoiceTitle}
+        </if>
+        <if test = "bankName != null">
+            and bank_name = #{bankName}
+        </if>
+        <if test = "accountName != null">
+            and account_name = #{accountName}
+        </if>
+        <if test = "accountNo != null">
+            and account_no = #{accountNo}
+        </if>
+        <if test = "taxNo != null">
+            and tax_no = #{taxNo}
+        </if>
+        ORDER BY created_time DESC
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_invoice_info
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderId != null">
+                            when id = #{item.id} then #{item.saleOrderId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sale_order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.saleOrderCode != null">
+                            when id = #{item.id} then #{item.saleOrderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="invoice_title = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.invoiceTitle != null">
+                            when id = #{item.id} then #{item.invoiceTitle}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="bank_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.bankName != null">
+                            when id = #{item.id} then #{item.bankName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="account_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.accountName != null">
+                            when id = #{item.id} then #{item.accountName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="account_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.accountNo != null">
+                            when id = #{item.id} then #{item.accountNo}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="tax_no = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.taxNo != null">
+                            when id = #{item.id} then #{item.taxNo}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_invoice_info
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_time,           updated_time,           sale_order_id,           sale_order_code,           invoice_title,           bank_name,           account_name,           account_no,           tax_no        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.deleted},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.saleOrderId},                 #{item.saleOrderCode},                 #{item.invoiceTitle},                 #{item.bankName},                 #{item.accountName},                 #{item.accountNo},                 #{item.taxNo})
+        </foreach>
+    </insert>
+</mapper>

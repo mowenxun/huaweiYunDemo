@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.OrderRefundSkuMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.OrderRefundSkuDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="isolationId" column="isolation_id"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="majorPicture" column="major_picture"/>
+
+        <result property="skuName" column="sku_name"/>
+
+        <result property="skuFormat" column="sku_format"/>
+
+        <result property="skuCode" column="sku_code"/>
+
+        <result property="price" column="price"/>
+
+        <result property="skuQuantity" column="sku_quantity"/>
+
+        <result property="skuTotalQuantity" column="sku_total_quantity"/>
+
+        <result property="refundOrderId" column="refund_order_id"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            is_deleted,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by,
+            isolation_id,
+            remark,
+            major_picture,
+            sku_name,
+            sku_format,
+            sku_code,
+            price,
+            sku_quantity,
+            sku_total_quantity,
+            refund_order_id    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE order_refund_sku SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM order_refund_sku
+        WHERE is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="version != null">
+            and version = #{version}
+        </if>
+        <if test="createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test="updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test="createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test="updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test="isolationId != null">
+            and isolation_id = #{isolationId}
+        </if>
+        <if test="remark != null">
+            and remark = #{remark}
+        </if>
+        <if test="majorPicture != null">
+            and major_picture = #{majorPicture}
+        </if>
+        <if test="skuName != null">
+            and sku_name = #{skuName}
+        </if>
+        <if test="skuFormat != null">
+            and sku_format = #{skuFormat}
+        </if>
+        <if test="skuCode != null">
+            and sku_code = #{skuCode}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+        <if test="skuQuantity != null">
+            and sku_quantity = #{skuQuantity}
+        </if>
+        <if test="skuTotalQuantity != null">
+            and sku_total_quantity = #{skuTotalQuantity}
+        </if>
+        <if test="refundOrderId != null">
+            and refund_order_id = #{refundOrderId}
+        </if>
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE order_refund_sku
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.tenantId != null">
+                        when id = #{item.id} then #{item.tenantId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.appId != null">
+                        when id = #{item.id} then #{item.appId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.version != null">
+                        when id = #{item.id} then #{item.version}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id} then #{item.deleted}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdTime != null">
+                        when id = #{item.id} then #{item.createdTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedTime != null">
+                        when id = #{item.id} then #{item.updatedTime}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createdBy != null">
+                        when id = #{item.id} then #{item.createdBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updatedBy != null">
+                        when id = #{item.id} then #{item.updatedBy}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="isolation_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.isolationId != null">
+                        when id = #{item.id} then #{item.isolationId}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.remark != null">
+                        when id = #{item.id} then #{item.remark}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="major_picture = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.majorPicture != null">
+                        when id = #{item.id} then #{item.majorPicture}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuName != null">
+                        when id = #{item.id} then #{item.skuName}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_format = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuFormat != null">
+                        when id = #{item.id} then #{item.skuFormat}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuCode != null">
+                        when id = #{item.id} then #{item.skuCode}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="price = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.price != null">
+                        when id = #{item.id} then #{item.price}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuQuantity != null">
+                        when id = #{item.id} then #{item.skuQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="sku_total_quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.skuTotalQuantity != null">
+                        when id = #{item.id} then #{item.skuTotalQuantity}
+                    </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="refund_order_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.refundOrderId != null">
+                        when id = #{item.id} then #{item.refundOrderId}
+                    </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO order_refund_sku
+        ( tenant_id, app_id, version, is_deleted, created_time, updated_time, created_by, updated_by, isolation_id,
+        remark, major_picture, sku_name, sku_format, sku_code, price, sku_quantity, sku_total_quantity, refund_order_id
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.tenantId}, #{item.appId}, #{item.version}, #{item.deleted}, #{item.createdTime},
+            #{item.updatedTime}, #{item.createdBy}, #{item.updatedBy}, #{item.isolationId}, #{item.remark},
+            #{item.majorPicture}, #{item.skuName}, #{item.skuFormat}, #{item.skuCode}, #{item.price},
+            #{item.skuQuantity}, #{item.skuTotalQuantity}, #{item.refundOrderId})
+        </foreach>
+    </insert>
+</mapper>

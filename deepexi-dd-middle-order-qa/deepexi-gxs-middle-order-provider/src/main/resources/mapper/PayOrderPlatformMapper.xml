@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.PayOrderPlatformMapper">
+  <resultMap id="BaseResultMap" type="com.deepexi.dd.middle.order.domain.PayOrderPlatformDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="app_id" jdbcType="BIGINT" property="appId" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="source_order_code" jdbcType="VARCHAR" property="sourceOrderCode" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+    <result column="seller_code" jdbcType="VARCHAR" property="sellerCode" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="paid_money" jdbcType="DECIMAL" property="paidMoney" />
+    <result column="collection_status" jdbcType="TINYINT" property="collectionStatus" />
+    <result column="unpay_money" jdbcType="DECIMAL" property="unpayMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tenant_id, app_id, version, remark, is_deleted, created_by, created_time, updated_time, 
+    updated_by, order_code, source_order_code, order_time, seller_id, seller_name, seller_code, collection_status,
+    total_amount, paid_money, unpay_money
+  </sql>
+  <select id="findByQuery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from pay_order_platform where is_deleted = 0
+    <if test="id != null">
+      and id = #{id}
+    </if>
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId}
+    </if>
+    <if test="appId != null">
+      and app_id = #{appId}
+    </if>
+    <if test="remark != null and remark != ''">
+      and remark = #{remark}
+    </if>
+    <if test="createdBy != null and createdBy != ''">
+      and created_by = #{createdBy}
+    </if>
+    <if test="createdTime != null">
+      and created_time = #{createdTime}
+    </if>
+    <if test="updatedTime != null">
+      and updated_time = #{updatedTime}
+    </if>
+    <if test="updatedBy != null and updatedBy != ''">
+      and updated_by = #{updatedBy}
+    </if>
+    <if test="orderCode != null and orderCode != ''">
+      and order_code like concat('%',#{orderCode},'%')
+    </if>
+    <if test="sourceOrderCode != null and sourceOrderCode != ''">
+      and source_order_code like concat('%',#{sourceOrderCode},'%')
+    </if>
+    <if test="sourceOrderCodeLike != null and sourceOrderCodeLike != ''">
+      and source_order_code like concat('%',#{sourceOrderCodeLike},'%')
+    </if>
+    <if test="orderTime != null">
+      and order_time = #{orderTime}
+    </if>
+    <if test="sellerId != null">
+      and seller_id = #{sellerId}
+    </if>
+    <if test="sellerName != null and sellerName != ''">
+      and seller_name = #{sellerName}
+    </if>
+    <if test="sellerCode != null and sellerCode != ''">
+      and seller_code = #{sellerCode}
+    </if>
+    <if test="totalAmount != null">
+      and total_amount = #{totalAmount}
+    </if>
+    <if test="paidMoney != null">
+      and paid_money = #{paidMoney}
+    </if>
+    <if test="unpayMoney != null">
+      and unpay_money = #{unpayMoney}
+    </if>
+    <if test="collectionStatus != null">
+      and collection_status = #{collectionStatus}
+    </if>
+
+    <if test = "createdTimeFrom != null and createdTimeTo != null">
+      and order_time between #{createdTimeFrom} and #{createdTimeTo}
+    </if>
+
+    ORDER BY order_time DESC
+  </select>
+
+</mapper>

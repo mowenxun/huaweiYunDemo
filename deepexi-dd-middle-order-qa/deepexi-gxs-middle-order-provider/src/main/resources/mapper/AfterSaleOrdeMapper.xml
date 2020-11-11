@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepexi.dd.middle.order.mapper.AfterSaleOrdeMapper">
+    <resultMap type="com.deepexi.dd.middle.order.domain.AfterSaleOrdeDO" id="BaseResultMap">
+        <result property="id" column="id"/>
+
+        <result property="tenantId" column="tenant_id"/>
+
+        <result property="appId" column="app_id"/>
+
+        <result property="version" column="version"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="deleted" column="is_deleted"/>
+
+        <result property="createdBy" column="created_by"/>
+
+        <result property="createdTime" column="created_time"/>
+
+        <result property="updatedTime" column="updated_time"/>
+
+        <result property="updatedBy" column="updated_by"/>
+
+        <result property="orderCode" column="order_code"/>
+
+        <result property="status" column="status"/>
+
+        <result property="shopId" column="shop_id"/>
+
+        <result property="shopName" column="shop_name"/>
+
+        <result property="shopCode" column="shop_code"/>
+
+        <result property="quantity" column="quantity"/>
+
+        <result property="totalAmount" column="total_amount"/>
+
+        <result property="alterReceiveId" column="alter_receive_id"/>
+
+        <result property="alterReceiveCode" column="alter_receive_code"/>
+
+        <result property="alterReceiveName" column="alter_receive_name"/>
+
+        <result property="reasonsType" column="reasons_type"/>
+
+        <result property="question" column="question"/>
+
+        <result property="pictureUrl" column="picture_url"/>
+
+        <result property="parentShopId" column="parent_shop_id"/>
+        <result property="sellerId" column="seller_id"/>
+
+        <result property="sellerName" column="seller_name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+            id,
+            tenant_id,
+            app_id,
+            version,
+            remark,
+            is_deleted,
+            created_by,
+            created_time,
+            updated_time,
+            updated_by,
+            order_code,
+            status,
+            shop_id,
+            shop_name,
+            shop_code,
+            quantity,
+            total_amount,
+            alter_receive_id,
+            alter_receive_code,
+            alter_receive_name,
+            seller_id,
+            seller_name,
+            seller_code,
+            reasons_type,
+            question,
+            picture_url,
+            parent_shop_id    </sql>
+
+    <update id="deleteByIdIn">
+        UPDATE after_sale_orde SET is_deleted = 1 WHERE id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM after_sale_orde
+        WHERE is_deleted = 0
+        <if test = "id != null">
+            and id = #{id}
+        </if>
+        <if test = "tenantId != null">
+            and tenant_id = #{tenantId}
+        </if>
+        <if test = "appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test = "version != null">
+            and version = #{version}
+        </if>
+        <if test = "remark != null">
+            and remark = #{remark}
+        </if>
+        <if test = "createdBy != null">
+            and created_by = #{createdBy}
+        </if>
+        <if test = "createdTime != null">
+            and created_time = #{createdTime}
+        </if>
+        <if test = "updatedTime != null">
+            and updated_time = #{updatedTime}
+        </if>
+        <if test = "updatedBy != null">
+            and updated_by = #{updatedBy}
+        </if>
+        <if test = "orderCode != null">
+            and order_code like concat('%',#{orderCode},'%')
+        </if>
+        <if test = "status != null">
+            and status = #{status}
+        </if>
+        <if test = "shopId != null">
+            and shop_id = #{shopId}
+        </if>
+        <if test = "shopName != null">
+            and shop_name like concat('%',#{shopName},'%')
+        </if>
+        <if test = "shopCode != null">
+            and shop_code = #{shopCode}
+        </if>
+        <if test = "quantity != null">
+            and quantity = #{quantity}
+        </if>
+        <if test = "totalAmount != null">
+            and total_amount = #{totalAmount}
+        </if>
+        <if test = "alterReceiveId != null">
+            and alter_receive_id = #{alterReceiveId}
+        </if>
+        <if test = "alterReceiveCode != null">
+            and alter_receive_code = #{alterReceiveCode}
+        </if>
+        <if test = "alterReceiveName != null">
+            and alter_receive_name = #{alterReceiveName}
+        </if>
+        <if test = "reasonsType != null">
+            and reasons_type = #{reasonsType}
+        </if>
+        <if test = "question != null">
+            and question = #{question}
+        </if>
+        <if test = "pictureUrl != null">
+            and picture_url = #{pictureUrl}
+        </if>
+        <if test = "parentShopId != null">
+            and parent_shop_id = #{parentShopId}
+        </if>
+        <if test="parentShopIds != null and parentShopIds.size() > 0">
+            and parent_shop_id in
+            <foreach item="item" index="index" collection="parentShopIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test = "sellerCode != null">
+            and seller_code = #{sellerCode}
+        </if>
+        <if test = "sellerId != null">
+            and seller_id = #{sellerId}
+        </if>
+        <if test = "sellerName != null">
+            and seller_name = #{sellerName}
+        </if>
+
+        <if test = "createdTimeFrom != null and createdTimeTo != null">
+            and created_time between #{createdTimeFrom} and #{createdTimeTo}
+        </if>
+        <if test = "orderCodeLike != null and orderCodeLike != ''">
+            and lower(order_code) like concat('%',lower(#{orderCodeLike}),'%')
+        </if>
+        <if test = "sellerNameLike != null and sellerNameLike != ''">
+            and seller_name like concat('%',#{sellerNameLike},'%')
+        </if>
+        <if test = "alterReceiveNameLike != null and alterReceiveNameLike != ''">
+            and alter_receive_name like concat('%',#{alterReceiveNameLike},'%')
+        </if>
+        ORDER BY created_time DESC
+    </select>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE after_sale_orde
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="tenant_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.tenantId != null">
+                            when id = #{item.id} then #{item.tenantId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="app_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.appId != null">
+                            when id = #{item.id} then #{item.appId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="version = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.version != null">
+                            when id = #{item.id} then #{item.version}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="remark = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.remark != null">
+                            when id = #{item.id} then #{item.remark}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.deleted != null">
+                            when id = #{item.id} then #{item.deleted}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdBy != null">
+                            when id = #{item.id} then #{item.createdBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="created_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.createdTime != null">
+                            when id = #{item.id} then #{item.createdTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedTime != null">
+                            when id = #{item.id} then #{item.updatedTime}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="updated_by = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.updatedBy != null">
+                            when id = #{item.id} then #{item.updatedBy}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="order_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.orderCode != null">
+                            when id = #{item.id} then #{item.orderCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="status = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.status != null">
+                            when id = #{item.id} then #{item.status}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shop_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.shopId != null">
+                            when id = #{item.id} then #{item.shopId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shop_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.shopName != null">
+                            when id = #{item.id} then #{item.shopName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="shop_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.shopCode != null">
+                            when id = #{item.id} then #{item.shopCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="quantity = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.quantity != null">
+                            when id = #{item.id} then #{item.quantity}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="total_amount = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.totalAmount != null">
+                            when id = #{item.id} then #{item.totalAmount}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="alter_receive_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.alterReceiveId != null">
+                            when id = #{item.id} then #{item.alterReceiveId}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="alter_receive_code = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.alterReceiveCode != null">
+                            when id = #{item.id} then #{item.alterReceiveCode}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="alter_receive_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.alterReceiveName != null">
+                            when id = #{item.id} then #{item.alterReceiveName}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="reasons_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.reasonsType != null">
+                            when id = #{item.id} then #{item.reasonsType}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="question = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.question != null">
+                            when id = #{item.id} then #{item.question}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="picture_url = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.pictureUrl != null">
+                            when id = #{item.id} then #{item.pictureUrl}
+                        </if>
+
+                </foreach>
+            </trim>
+            <trim prefix="parent_shop_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                        <if test="item.parentShopId != null">
+                            when id = #{item.id} then #{item.parentShopId}
+                        </if>
+
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO after_sale_orde
+        (           tenant_id,           app_id,           version,           remark,           is_deleted,           created_by,           created_time,           updated_time,           updated_by,           order_code,           status,           shop_id,           shop_name,           shop_code,           quantity,           total_amount,           alter_receive_id,           alter_receive_code,           alter_receive_name,           reasons_type,           question,           picture_url,           parent_shop_id        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (                 #{item.tenantId},                 #{item.appId},                 #{item.version},                 #{item.remark},                 #{item.isDeleted},                 #{item.createdBy},                 #{item.createdTime},                 #{item.updatedTime},                 #{item.updatedBy},                 #{item.orderCode},                 #{item.status},                 #{item.shopId},                 #{item.shopName},                 #{item.shopCode},                 #{item.quantity},                 #{item.totalAmount},                 #{item.alterReceiveId},                 #{item.alterReceiveCode},                 #{item.alterReceiveName},                 #{item.reasonsType},                 #{item.question},                 #{item.pictureUrl},                 #{item.parentShopId})
+        </foreach>
+    </insert>
+</mapper>
