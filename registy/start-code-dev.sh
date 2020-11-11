@@ -37,7 +37,7 @@ docker run -d --restart=on-failure:5 --privileged=true \
   -w /home \
   --net=host \
   -v $PWD/logs:/home/logs \
-  --name xiaomo/com.xiaomo.registy \
+  --name com.xiaomo.registy xiaomo/com.xiaomo.registy \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
