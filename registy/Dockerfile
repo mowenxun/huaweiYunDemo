@@ -16,4 +16,4 @@ FROM iron/java:1.8
 
 USER root
 
-COPY demo.jar /home/
+COPY target/demo.jar /home/
