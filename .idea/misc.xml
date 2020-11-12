@@ -12,6 +12,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/xxl-job-2.2.0/pom.xml" />
+        <option value="$PROJECT_DIR$/deepexi-dd-middle-order/pom.xml" />
+        <option value="$PROJECT_DIR$/deepexi-dd-middle-order-qa/pom.xml" />
       </list>
     </option>
   </component>

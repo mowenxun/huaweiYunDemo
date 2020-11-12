@@ -8,15 +8,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xxl-job-executor-sample-spring" />
         <module name="xxl-job-executor-sample-jfinal" />
+        <module name="deepexi-gxs-middle-order-provider" />
         <module name="xxl-job-admin" />
         <module name="xxl-job-executor-sample-frameless" />
         <module name="xxl-job-executor-sample-springboot" />
         <module name="xxl-job-executor-sample-jboot" />
         <module name="xxl-job-executor-sample-nutz" />
         <module name="xxl-job-core" />
+        <module name="deepexi-gxs-middle-order-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="deepexi-gxs-middle-order" target="1.8" />
+      <module name="deepexi-gxs-middle-order-api" target="1.8" />
+      <module name="deepexi-gxs-middle-order-provider" target="1.8" />
       <module name="xxl-job" target="1.8" />
       <module name="xxl-job-admin" target="1.8" />
       <module name="xxl-job-core" target="1.8" />
@@ -31,6 +36,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="deepexi-gxs-middle-order-api" options="-parameters" />
+      <module name="deepexi-gxs-middle-order-provider" options="-parameters" />
       <module name="xxl-job-core" options="-parameters" />
     </option>
   </component>
