@@ -40,15 +40,15 @@ docker run -d --restart=on-failure:5 --privileged=true \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
-  -Denv=$apollo_env \
-  -Dapollo.configService=$apollo_configService \
-  -XX:+PrintGCDateStamps \
-  -XX:+PrintGCTimeStamps \
-  -XX:+PrintGCDetails \
-  -XX:+HeapDumpOnOutOfMemoryError \
-  -Xloggc:logs/gc_$version.log \
-  -jar /home/demo.jar \
-  --app.id=$app_id \
-  --apollo.meta=$apollo_meta \
-  --apollo.bootstrap.enabled=$apollo_bootstrap_enabled \
-  --apollo.bootstrap.namespaces=$apollo_bootstrap_namespaces
+  #-Denv=$apollo_env \
+  #-Dapollo.configService=$apollo_configService \
+  #-XX:+PrintGCDateStamps \
+  #-XX:+PrintGCTimeStamps \
+  #-XX:+PrintGCDetails \
+  #-XX:+HeapDumpOnOutOfMemoryError \
+  #-Xloggc:logs/gc_$version.log \
+  -jar /home/demo.jar
+ # --app.id=$app_id \
+ # --apollo.meta=$apollo_meta \
+ # --apollo.bootstrap.enabled=$apollo_bootstrap_enabled \
+ # --apollo.bootstrap.namespaces=$apollo_bootstrap_namespaces
