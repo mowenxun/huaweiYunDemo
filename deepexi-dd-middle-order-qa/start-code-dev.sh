@@ -6,12 +6,12 @@ m2_cache=~/.m2                    # the local maven cache dir
 proj_home=$PWD                    # the project root dir
 img_output="dd/deepexi.gxs.middle.order" # output image tag
 
-#apollo_configService="http://192.168.0.218:8080"
-#app_id="deepexi.dd.middle.order"
-#apollo_meta="http://192.168.0.218:8080"
-#apollo_bootstrap_enabled="true"
-#apollo_bootstrap_namespaces="application"
-#apollo_env="DEV"
+apollo_configService="http://192.168.0.218:8080"
+app_id="deepexi.dd.middle.order"
+apollo_meta="http://192.168.0.218:8080"
+apollo_bootstrap_enabled="true"
+apollo_bootstrap_namespaces="application"
+apollo_env="DEV"
 git pull # should use git clone https://name:pwd@xxx.git
 
 echo "use docker maven"
@@ -40,15 +40,15 @@ docker run -d --restart=on-failure:5 --privileged=true \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
-  #-Denv=$apollo_env \
-  #-Dapollo.configService=$apollo_configService \
-  #-XX:+PrintGCDateStamps \
-  #-XX:+PrintGCTimeStamps \
-  #-XX:+PrintGCDetails \
-  #-XX:+HeapDumpOnOutOfMemoryError \
-  #-Xloggc:logs/gc_$version.log \
-  -jar /home/demo.jar
- # --app.id=$app_id \
- # --apollo.meta=$apollo_meta \
- # --apollo.bootstrap.enabled=$apollo_bootstrap_enabled \
- # --apollo.bootstrap.namespaces=$apollo_bootstrap_namespaces
+  -Denv=$apollo_env \
+  -Dapollo.configService=$apollo_configService \
+  -XX:+PrintGCDateStamps \
+  -XX:+PrintGCTimeStamps \
+  -XX:+PrintGCDetails \
+  -XX:+HeapDumpOnOutOfMemoryError \
+  -Xloggc:logs/gc_$version.log \
+  -jar /home/demo.jar \
+  --app.id=$app_id \
+  --apollo.meta=$apollo_meta \
+  --apollo.bootstrap.enabled=$apollo_bootstrap_enabled \
+  --apollo.bootstrap.namespaces=$apollo_bootstrap_namespaces
