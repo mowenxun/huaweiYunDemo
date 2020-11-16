@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.deepexi.spaas:deepexi-domain-sdk-storage:3.0.0-BASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-storage/3.0.0-BASE/deepexi-domain-sdk-storage-3.0.0-BASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-storage/3.0.0-BASE/deepexi-domain-sdk-storage-3.0.0-BASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-storage/3.0.0-BASE/deepexi-domain-sdk-storage-3.0.0-BASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

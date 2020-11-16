@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.deepexi.iam:deepexi-iam-security-starter:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/iam/deepexi-iam-security-starter/1.0.0-SNAPSHOT/deepexi-iam-security-starter-1.0.0-20200821.100120-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/iam/deepexi-iam-security-starter/1.0.0-SNAPSHOT/deepexi-iam-security-starter-1.0.0-20200821.100120-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/iam/deepexi-iam-security-starter/1.0.0-SNAPSHOT/deepexi-iam-security-starter-1.0.0-20200821.100120-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.deepexi.spaas:deepexi-domain-sdk-commodity:3.1.1-BASE-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-commodity/3.1.1-BASE-SNAPSHOT/deepexi-domain-sdk-commodity-3.1.1-BASE-20201014.062003-6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-commodity/3.1.1-BASE-SNAPSHOT/deepexi-domain-sdk-commodity-3.1.1-BASE-20201014.062003-6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/spaas/deepexi-domain-sdk-commodity/3.1.1-BASE-SNAPSHOT/deepexi-domain-sdk-commodity-3.1.1-BASE-20201014.062003-6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

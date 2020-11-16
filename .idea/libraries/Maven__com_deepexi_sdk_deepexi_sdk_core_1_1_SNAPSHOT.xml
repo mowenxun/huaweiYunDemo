@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.deepexi.sdk:deepexi-sdk-core:1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/sdk/deepexi-sdk-core/1.1-SNAPSHOT/deepexi-sdk-core-1.1-20200723.121647-10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/sdk/deepexi-sdk-core/1.1-SNAPSHOT/deepexi-sdk-core-1.1-20200723.121647-10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/sdk/deepexi-sdk-core/1.1-SNAPSHOT/deepexi-sdk-core-1.1-20200723.121647-10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
