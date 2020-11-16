@@ -1,0 +1,36 @@
+spring.aop.auto = true
+spring.aop.proxy-target-class = true
+spring.profiles.active = dev
+log.env.profile = dev
+log.env.module = tcl.domain.transaction
+log.env.logger.level = debug
+spring.application.name = tcl.domain.transaction
+server.port = 8205
+eureka.client.serviceUrl.defaultZone = http://10.52.48.3:8080/eureka/
+eureka.client.fetch-registry = true
+eureka.client.register-with-eureka = true
+eureka.instance.prefer-ip-address = true
+ribbon.ServerListRefreshInterval = 5000
+ribbon.ReadTimeout = 30000
+ribbon.ConnectTimeout = 30000
+ribbon.MaxAutoRetries = 0
+ribbon.MaxAutoRetriesNextServer = 0
+feign.hystrix.enabled = false
+hystrix.command.default.execution.timeout.isolation.thread.timeoutInMilliseconds = 5000
+mybatis-plus.mapper-locations = classpath*:mapper/*Mapper.xml
+mybatis-plus.configuration.map-underscore-to-camel-case = true
+mybatis-plus.global-config.logic-delete-value = 1
+mybatis-plus.global-config.logic-not-delete-value = 0
+mybatis-plus.global-config.db-config.id-type = auto
+tcl.middle.order.name = tcl.middle.order
+tcl.middle.staff.name = tcl.middle.staff
+tcl.middle.customer.name = tcl.middle.customer
+tcl.middle.commodity.name = tcl.middle.commodity
+tcl.middle.permission.name = tcl.middle.permission
+tcl.middle.depot.name = tcl.middle.depot
+
+server.max-http-header-size = 102400
+
+spring.redis.host = 10.52.48.3
+spring.redis.port = 6379
+spring.redis.password = dd@2020
