@@ -17,8 +17,8 @@ import javax.sql.DataSource;
  * @date 2018/11/5
  * 数据源配置
  */
-@Configuration
-@MapperScan("com.deepexi.dd.domain.transaction.mapper")
+//@Configuration
+//@MapperScan("com.deepexi.dd.domain.transaction.mapper")
 public class DataSourceConfig {
 
     @Value("${spring.datasource.driverClassName}")
