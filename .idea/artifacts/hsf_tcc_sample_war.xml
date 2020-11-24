@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="hsf-tcc-sample:war">
+    <output-path>$PROJECT_DIR$/seata-samples-master/tcc/hsf-tcc-sample/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>hsf-tcc-sample</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="hsf-tcc-sample-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="hsf-tcc-sample:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/seata-samples-master/tcc/hsf-tcc-sample" />
     <file type="web" url="file://$PROJECT_DIR$/xxl-job-2.2.0/xxl-job-executor-samples/xxl-job-executor-sample-jfinal" />
     <file type="web" url="file://$PROJECT_DIR$/xxl-job-2.2.0/xxl-job-executor-samples/xxl-job-executor-sample-nutz" />
     <file type="web" url="file://$PROJECT_DIR$/xxl-job-2.2.0/xxl-job-executor-samples/xxl-job-executor-sample-spring" />
@@ -17,6 +18,8 @@
         <option value="$PROJECT_DIR$/deepexi-dd-domain-transaction-qa/pom.xml" />
         <option value="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata-master/pom.xml" />
         <option value="$PROJECT_DIR$/seata-develop/pom.xml" />
+        <option value="$PROJECT_DIR$/seata-samples-master/pom.xml" />
+        <option value="$PROJECT_DIR$/seata-samples-master/springcloud-eureka-feign-mybatis-seata/pom.xml" />
       </list>
     </option>
   </component>
