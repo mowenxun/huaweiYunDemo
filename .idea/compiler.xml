@@ -11,102 +11,54 @@
         <module name="seata-saga-processctrl" />
         <module name="seata-config-zk" />
         <module name="seata-tcc" />
-        <module name="dubbo-tcc-sample" />
         <module name="seata-metrics-registry-compact" />
         <module name="seata-discovery-redis" />
         <module name="seata-serializer-fst" />
-        <module name="seata-samples-springboot" />
-        <module name="samples-account" />
         <module name="seata-sqlparser-druid" />
-        <module name="transfer-tcc-sample" />
         <module name="seata-saga-engine" />
         <module name="account-server" />
-        <module name="order" />
-        <module name="samples-common" />
         <module name="deepexi-gxs-middle-order-api" />
-        <module name="sca-customer" />
         <module name="seata-serializer-hessian" />
         <module name="seata-compressor-bzip2" />
         <module name="seata-compressor-gzip" />
-        <module name="storage-service" />
-        <module name="samples-order-service" />
-        <module name="samples-business" />
-        <module name="multiple-datasource-mybatis-plus" />
-        <module name="samples-order" />
-        <module name="sbm-business-service" />
-        <module name="nutzboot-dubbo-fescar-web" />
         <module name="seata-serializer-all" />
-        <module name="hsf-tcc-sample" />
         <module name="seata-config-all" />
-        <module name="sofarpc-saga-sample" />
         <module name="seata-discovery-zk" />
         <module name="seata-compressor-7z" />
-        <module name="dubbo-saga-sample" />
         <module name="seata-all" />
         <module name="seata-serializer-protobuf" />
         <module name="seata-grpc" />
         <module name="seata-config-apollo" />
-        <module name="local-tcc-sample" />
         <module name="seata-discovery-all" />
-        <module name="sbm-account-service" />
-        <module name="account-service" />
-        <module name="samples-storage" />
         <module name="seata-config-core" />
         <module name="seata-discovery-core" />
-        <module name="order-service" />
-        <module name="seata-samples-nacos" />
         <module name="seata-compressor-zip" />
-        <module name="seata-samples-dubbo" />
-        <module name="sbm-order-service" />
-        <module name="seata-samples-api" />
         <module name="seata-metrics-all" />
         <module name="seata-tm" />
-        <module name="base-framework-mysql-support" />
-        <module name="seata-samples-HA" />
         <module name="seata-config-consul" />
         <module name="seata-discovery-sofa" />
         <module name="seata-dubbo-alibaba" />
         <module name="seata-saga-statelang" />
         <module name="springcloud-eureka-feign-mybatis-seata" />
-        <module name="sca-provider" />
         <module name="seata-dubbo" />
-        <module name="shardingsphere-seata-business" />
         <module name="seata-motan" />
-        <module name="springboot-tcc-sample" />
-        <module name="local-saga-sample" />
-        <module name="nutzboot-dubbo-fescar-account" />
-        <module name="multiple-datasource" />
-        <module name="samples-business-service" />
-        <module name="account" />
         <module name="seata-config-nacos" />
         <module name="xxl-job-admin" />
         <module name="seata-config-etcd3" />
-        <module name="business-service" />
         <module name="seata-discovery-consul" />
         <module name="seata-saga-tm" />
-        <module name="sbm-common-service" />
         <module name="xxl-job-executor-sample-spring" />
-        <module name="shardingsphere-seata-order" />
         <module name="seata-config-spring-cloud" />
         <module name="xxl-job-executor-sample-jboot" />
-        <module name="business-xa" />
         <module name="seata-rm" />
         <module name="seata-sofa-rpc" />
         <module name="seata-compressor-lz4" />
         <module name="seata-serializer-kryo" />
         <module name="seata-discovery-custom" />
-        <module name="nutzboot-dubbo-fescar-common" />
-        <module name="samples-storage-service" />
-        <module name="sofarpc-tcc-sample" />
         <module name="xxl-job-core" />
-        <module name="nutzboot-dubbo-fescar-order" />
-        <module name="account-xa" />
+        <module name="eureka-server" />
         <module name="seata-test" />
-        <module name="bussiness" />
-        <module name="storage-xa" />
         <module name="seata-compressor-all" />
-        <module name="sbm-storage-service" />
-        <module name="samples-account-service" />
         <module name="seata-spring" />
         <module name="seata-http" />
         <module name="seata-common" />
@@ -116,24 +68,18 @@
         <module name="seata-metrics-exporter-prometheus" />
         <module name="seata-discovery-etcd3" />
         <module name="deepexi-gxs-domain-transaction-provider" />
-        <module name="order-xa" />
         <module name="seata-rm-datasource" />
         <module name="seata-discovery-eureka" />
         <module name="deepexi-gxs-middle-order-provider" />
-        <module name="storage" />
         <module name="order-server" />
         <module name="seata-server" />
         <module name="xxl-job-executor-sample-frameless" />
         <module name="xxl-job-executor-sample-jfinal" />
-        <module name="samples-common-service" />
         <module name="storage-server" />
         <module name="seata-metrics-api" />
-        <module name="nutzboot-dubbo-fescar-storage" />
-        <module name="eureka" />
         <module name="seata-serializer-seata" />
         <module name="seata-core" />
         <module name="seata-sqlparser-core" />
-        <module name="sca-common" />
         <module name="xxl-job-executor-sample-nutz" />
         <module name="seata-spring-boot-starter" />
         <module name="seata-metrics-core" />
@@ -158,6 +104,7 @@
       <module name="dubbo-saga-sample" target="1.8" />
       <module name="dubbo-tcc-sample" target="1.8" />
       <module name="eureka" target="1.8" />
+      <module name="eureka-server" target="1.8" />
       <module name="hsf-tcc-sample" target="1.8" />
       <module name="local-saga-sample" target="1.8" />
       <module name="local-tcc-sample" target="1.8" />
@@ -309,6 +256,7 @@
       <module name="deepexi-gxs-domain-transaction-provider" options="-parameters" />
       <module name="deepexi-gxs-middle-order-api" options="-parameters" />
       <module name="deepexi-gxs-middle-order-provider" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
       <module name="order-server" options="-parameters" />
       <module name="springcloud-eureka-feign-mybatis-seata" options="-parameters" />
       <module name="storage-server" options="-parameters" />
