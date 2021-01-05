@@ -1,0 +1,4 @@
+nohup sh seata-server.sh >log.out 2>1 &
+[1] 15681
+
+启动
