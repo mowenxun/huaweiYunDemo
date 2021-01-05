@@ -17,6 +17,7 @@ logging:
     level:
         io:
             seata: info
+        io.seata.sample.dao.*: debug    #这是你的mapper包路径。org.spring.springboot
 mybatis:
     mapperLocations: classpath:mapper/*.xml
     typeAliasesPackage: io.seata.sample.entity
