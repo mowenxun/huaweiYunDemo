@@ -3,4 +3,4 @@ FROM iron/java:1.8
 
 USER root
 
-COPY order-server/target/demo.jar /home/
+COPY target/demo.jar /home/
