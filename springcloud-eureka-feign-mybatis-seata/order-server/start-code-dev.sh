@@ -18,7 +18,7 @@ echo "use docker maven"
 docker run --rm \
   -v $m2_cache:/root/.m2 \
   -v $proj_home:/usr/src/mymaven \
-  -w /usr/src/mymaven $img_mvn mvn clean install -U -Pdev -DskipTests
+  -w $img_mvn mvn clean install -U -Pdev -DskipTests
   #-w /usr/src/mymaven $img_mvn mvn clean package -U -Pdev -DskipTests
 
 mv $proj_home/target/order-server-*.jar $proj_home/target/demo.jar # 兼容所有sh脚本
