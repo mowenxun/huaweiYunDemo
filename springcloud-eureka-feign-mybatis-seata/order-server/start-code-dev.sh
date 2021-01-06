@@ -38,7 +38,7 @@ docker run -d --restart=on-failure:5 --privileged=true \
   -w /home \
   --net=host \
   -v $PWD/logs:/home/logs \
-  --name xiaomo.order.server dd/xiaomo.order.server \
+  --name xiaomo.order.server xiaomo/xiaomo.order.server \
   java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone=Asia/Shanghai \
