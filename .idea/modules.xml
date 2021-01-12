@@ -9,6 +9,9 @@
       <module fileurl="file://$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order.iml" filepath="$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order.iml" />
       <module fileurl="file://$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order-api/deepexi-gxs-middle-order-api.iml" filepath="$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order-api/deepexi-gxs-middle-order-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order-provider/deepexi-gxs-middle-order-provider.iml" filepath="$PROJECT_DIR$/deepexi-dd-middle-order-qa/deepexi-gxs-middle-order-provider/deepexi-gxs-middle-order-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-gxs-system-mall.iml" filepath="$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-gxs-system-mall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-dd-system-mall-api/deepexi-gxs-system-mall-api.iml" filepath="$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-dd-system-mall-api/deepexi-gxs-system-mall-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-dd-system-mall-provider/deepexi-gxs-system-mall-provider.iml" filepath="$PROJECT_DIR$/deepexi-dd-system-mall-qa/deepexi-dd-system-mall-provider/deepexi-gxs-system-mall-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/huaweiYunDemo.iml" filepath="$PROJECT_DIR$/.idea/huaweiYunDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/order-server/order-server.iml" filepath="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/order-server/order-server.iml" />

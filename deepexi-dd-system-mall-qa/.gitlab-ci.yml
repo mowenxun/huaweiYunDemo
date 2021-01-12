@@ -1,0 +1,63 @@
+variables:
+  APP_NAME: "deepexi-dd-system-mall"
+  APP_ID: "deepexi.dd.system.mall"
+  APOLLO_NAME_SPACES: "application,TEST1.deepexi.gree.common"
+  NAME_SPACE: "gree-uat"
+  IMAGE_TAG_NAME: "harbor2048.deepexi.com/${NAME_SPACE}/${APP_NAME}:"
+
+after_script:
+  - echo "stage end"
+
+before_script:
+  - echo "stage begin"
+  - pwd && ls -al
+
+stages:
+  - build
+  - push
+  - deploy
+
+
+# 定义 job
+build:
+  stage: build
+  script:
+    - echo "building package"
+    - mvn clean package -U -DskipTests
+    - cd ${APP_NAME}-provider
+    - cp target/${APP_NAME}-*.jar /usr/local/appcache/${APP_NAME}-${CI_COMMIT_SHORT_SHA}.jar
+  tags:
+    - java
+  only:
+    - uat
+
+# 定义 deploy
+push:
+  variables:
+  stage: push
+  script:
+    - echo "push to docker registry"
+    - cd ${APP_NAME}-provider
+    - mkdir target
+    - cp /usr/local/appcache/${APP_NAME}-${CI_COMMIT_SHORT_SHA}.jar target/app.jar
+    - docker build -f /root/.m2/java-Dockerfile -t ${IMAGE_TAG_NAME}${CI_COMMIT_SHORT_SHA} . --build-arg APP_ID=${APP_ID} --build-arg APOLLO_NAME_SPACES=${APOLLO_NAME_SPACES}
+    - docker login harbor2048.deepexi.com --username "gree" --password "Abcd1234"
+    - docker tag ${IMAGE_TAG_NAME}${CI_COMMIT_SHORT_SHA} ${IMAGE_TAG_NAME}latest
+    - docker push ${IMAGE_TAG_NAME}${CI_COMMIT_SHORT_SHA}
+    - docker push ${IMAGE_TAG_NAME}latest
+    - docker rmi ${IMAGE_TAG_NAME}latest
+    - docker rmi ${IMAGE_TAG_NAME}${CI_COMMIT_SHORT_SHA}
+  tags:
+    - docker
+  only:
+    - uat
+
+deploy:
+  stage: deploy
+  when: manual
+  script:
+    - docker run --rm harbor2048.deepexi.com/applife/kubectl:stable set image deployment/${APP_NAME} ${APP_NAME}=${IMAGE_TAG_NAME}${CI_COMMIT_SHORT_SHA} -n ${NAME_SPACE}
+  tags:
+    - docker
+  only:
+    - uat

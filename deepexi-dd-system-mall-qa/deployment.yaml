@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepexi-dd-system-mall
+  namespace: ddp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: deepexi-dd-system-mall
+      annotations:
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+    spec:
+      containers:
+        - name: deepexi-dd-system-mall
+          imagePullPolicy: Always
+          image: harbor2048.deepexi.com/gree/deepexi-dd-system-mall:latest
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 90
+              timeoutSeconds: 5
+              periodSeconds: 30
+          readinessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 30
+              timeoutSeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 5
+          envFrom:
+            - configMapRef:
+               name: ddp-cm
+          volumeMounts:
+            - name: log
+              mountPath: /home/logs
+      volumes:
+        - name: log
+          hostPath:
+            path: /var/log/deepexi-dd-system-mall
+            type: DirectoryOrCreate
+  selector:
+    matchLabels:
+      app: deepexi-dd-system-mall
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepexi-dd-system-mall
+  namespace: ddp
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      name: http
+      targetPort: 8080
+  selector:
+    app: deepexi-dd-system-mall

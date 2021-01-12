@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.deepexi.dd</groupId>
+        <artifactId>deepexi-gxs-system-mall</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>deepexi-gxs-system-mall-provider</artifactId>
+    <version>${provider.version}</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.deepexi.dd</groupId>
+            <artifactId>deepexi-gxs-system-mall-api</artifactId>
+            <version>${api.version}</version>
+        </dependency>
+        <!--添加IAM商品依赖包-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.deepexi.spaas</groupId>-->
+        <!--            <artifactId>deepexi-domain-sdk-commodity</artifactId>-->
+        <!--            <version>2.0.0-BASE-SNAPSHOT</version>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.deepexi.dd</groupId>
+            <artifactId>deepexi-gxs-domain-transaction-api</artifactId>
+            <version>${api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.deepexi.dd</groupId>
+            <artifactId>deepexi-gxs-domain-common-base</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <!-- 商品域-->
+        <dependency>
+            <groupId>com.gxs.spaas</groupId>
+            <artifactId>deepexi-domain-sdk-commodity</artifactId>
+            <version>3.1.1-BASE-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 商品域jar-->
+        <dependency>
+            <groupId>com.deepexi.spaas</groupId>
+            <artifactId>deepexi-domain-commodity-api</artifactId>
+            <version>3.2.0-GXS-BASE-SNAPSHOT</version>
+        </dependency>
+        <!-- 客户域 -->
+        <dependency>
+            <groupId>com.deepexi.spaas</groupId>
+            <artifactId>deepexi-gxs-domain-customer-api</artifactId>
+            <version>${api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.deepexi.dd</groupId>
+            <artifactId>deepexi-gxs-domain-business-api</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 仓储域 -->
+        <dependency>
+            <groupId>com.deepexi.spaas</groupId>
+            <artifactId>deepexi-domain-sdk-storage</artifactId>
+            <version>3.0.0-BASE-SNAPSHOT</version>
+        </dependency>
+
+        <!-- oss -->
+        <dependency>
+            <groupId>cn.javaer.aliyun</groupId>
+            <artifactId>aliyun-spring-boot-starter-oss</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.deepexi.dd</groupId>
+            <artifactId>deepexi-gxs-domain-transaction-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

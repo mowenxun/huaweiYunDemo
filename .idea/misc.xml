@@ -22,6 +22,7 @@
         <option value="$PROJECT_DIR$/seata-samples-master/springcloud-eureka-feign-mybatis-seata/pom.xml" />
         <option value="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/pom.xml" />
         <option value="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/deepexi-dd-system-mall-qa/pom.xml" />
       </list>
     </option>
   </component>
