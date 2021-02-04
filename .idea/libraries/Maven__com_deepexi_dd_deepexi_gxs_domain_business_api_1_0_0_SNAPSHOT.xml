@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: com.deepexi.dd:deepexi-gxs-domain-business-api:1.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-SNAPSHOT.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-20201030.091243-14.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-20201030.091243-14-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/deepexi/dd/deepexi-gxs-domain-business-api/1.0.0-SNAPSHOT/deepexi-gxs-domain-business-api-1.0.0-20201030.091243-14-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
